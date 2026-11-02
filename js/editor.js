@@ -154,9 +154,9 @@ const TARGETS = [
   { sel: ".file-cat", name: "고양이 파일" },
   { sel: ".use-tip", name: "사용방법" },
   { sel: ".guest-logo", name: "방명록 로고" },
-  { sel: ".guest-intro", name: "방명록 문구" },
-  { sel: ".guest-form", name: "방명록 입력칸" },
-  { sel: ".guest-submit", name: "남기기 버튼" },
+  { sel: ".guest-intro", name: "제목+본문", axis: "y" },
+  { sel: ".guest-form", name: "이름/응원의 말", axis: "y" },
+  { sel: ".guest-submit", name: "남기기 버튼", axis: "y" },
   { sel: ".guest-list", name: "방명록 글 목록", kind: "listY", axis: "y" },
   { sel: ".dogam-hero", name: "도감 전체샷", kind: "hero", move: "dbl" },
   { sel: ".dogam-hero img", name: "전체샷 캐릭터", kind: "heroSprite", host: ".dogam-hero" },
@@ -175,6 +175,7 @@ const TARGETS = [
 
 const stage = document.querySelector(".stage");
 const hud = buildHud();
+const openBtn = buildOpenBtn();
 let selected = null;
 let drag = null;
 let history = [];
@@ -330,15 +331,15 @@ function applyRecord(el, rec, item) {
     else el.style.removeProperty("--guest-list-y");
     return;
   }
-  const pinned = Boolean(rec.left && rec.top);
+  const pinned = Boolean(rec.left && rec.top) || Boolean(isGuestNudgeTarget(item) && rec.top);
   if (pinned) {
     if (isDogamTarget(item) || isGuestTarget(item)) el.style.position = "absolute";
-    if (item?.axis !== "y") el.style.left = rec.left;
+    if (item?.axis !== "y" && rec.left) el.style.left = rec.left;
     el.style.top = rec.top;
     el.style.right = "auto";
     el.style.bottom = "auto";
   }
-  if (rec.width) el.style.width = rec.width;
+  if (rec.width && item?.axis !== "y") el.style.width = rec.width;
   if (item?.kind === "type" || item?.kind === "tags") {
     el.style.height = "auto";
   } else if (rec.height) {
@@ -370,9 +371,10 @@ function isFiniteLen(v) {
 
 function isValidRec(rec) {
   if (!rec) return false;
-  if ((rec.left || rec.top) && (!isFiniteLen(rec.left) || !isFiniteLen(rec.top))) return false;
+  if (rec.left && !isFiniteLen(rec.left)) return false;
+  if (rec.top && !isFiniteLen(rec.top)) return false;
   if (rec.width && !isFiniteLen(rec.width)) return false;
-  return Boolean(parseFloat(rec.width) > 0.2 || rec.fontSize || rec.spriteY || rec.spriteX || (rec.left && rec.top));
+  return Boolean(parseFloat(rec.width) > 0.2 || rec.fontSize || rec.spriteY || rec.spriteX || rec.top || (rec.left && rec.top));
 }
 
 function canCapture(el) {
@@ -547,8 +549,7 @@ function mergeRec(prev, rec) {
 
 function persist(el) {
   const item = itemFromEl(el);
-  if (!item || isDogamTarget(item)) return;
-  if (item.sel === ".guest-intro" && !el?.style.left) return;
+  if (!item || isDogamTarget(item) || isCssLockedLayout(item)) return;
   if (!isVarKind(item) && !canCapture(el)) return;
   const rec = snapshotFor(item, el);
   if (!isValidRec(rec)) return;
@@ -566,8 +567,8 @@ function persistAll() {
     const el = document.querySelector(item.sel);
     if (el) item.el = el;
     if (isCssLockedLayout(item) || isDogamTarget(item)) return;
-    if (isGuestTarget(item)) return;
-    if (item.sel === ".guest-intro" && !el?.style.left) return;
+    if (isGuestTarget(item) && !isGuestNudgeTarget(item)) return;
+    if (isGuestNudgeTarget(item) && document.body.dataset.page !== "guestbook") return;
     if (!isVarKind(item) && !canCapture(el)) return;
     const rec = snapshotFor(item, el || varHost(item));
     if (isValidRec(rec)) store[storeKey(item)] = mergeRec(store[storeKey(item)], rec);
@@ -868,10 +869,16 @@ function isDogamTarget(item) {
   return item?.sel?.startsWith(".dogam-") || item?.sel?.startsWith(".growth");
 }
 
+function isGuestNudgeTarget(item) {
+  const sel = item?.sel;
+  return sel === ".guest-intro" || sel === ".guest-form" || sel === ".guest-submit";
+}
+
 function isCssLockedLayout(item) {
   const sel = item?.sel;
   if (!sel) return false;
-  if (isGuestTarget(item)) return true;
+  if (sel === ".guest-logo" || sel === ".guest-list") return true;
+  if (isGuestTarget(item) && !isGuestNudgeTarget(item)) return true;
   return (
     sel === ".dogam-hero" ||
     sel === ".dogam-no" ||
@@ -886,7 +893,7 @@ function stripCssLockedStore(store) {
   let patched = false;
   Object.keys(store).forEach((key) => {
     const base = key.split("@@")[0];
-    if (base.startsWith(".guest-")) {
+    if (base === ".guest-logo" || base === ".guest-list") {
       delete store[key];
       patched = true;
       return;
@@ -943,6 +950,10 @@ function redo() {
 function lockBox(el) {
   if (el.dataset.boxLock === "1") return;
   const item = itemFromEl(el);
+  if (item?.axis === "y") {
+    el.dataset.boxLock = "1";
+    return;
+  }
   const pr = containingEl(el).getBoundingClientRect();
   const r = el.getBoundingClientRect();
   if (!el.style.width) el.style.width = `${((r.width / pr.width) * 100).toFixed(4)}%`;
@@ -996,6 +1007,7 @@ function setEditing(on) {
   if (!on) persistAll();
   document.body.dataset.edit = on ? "on" : "off";
   hud.hidden = !on;
+  openBtn.hidden = on;
   localStorage.setItem(EDIT_PREF, on ? "on" : "off");
   if (!on) select(null);
   else {
@@ -1043,6 +1055,16 @@ function buildHud() {
   return el;
 }
 
+function buildOpenBtn() {
+  const el = document.createElement("button");
+  el.type = "button";
+  el.className = "layout-edit-open";
+  el.textContent = "편집 켜기";
+  el.addEventListener("click", () => setEditing(true));
+  document.body.appendChild(el);
+  return el;
+}
+
 function cssLine(sel, rec, el) {
   const sr = stageBox();
   const pr = parentBox(el);
@@ -1085,17 +1107,21 @@ function resizeEdge(event, rect) {
 
 function onPointerDown(event) {
   if (!editing()) return;
-  if (event.target.closest(".layout-hud")) return;
+  if (event.target.closest(".layout-hud, .layout-edit-open")) return;
   const typing = event.target.closest("input, textarea, [contenteditable='true']");
   const hit = event.target.closest(".layout-target");
   const already = selected === hit;
   if (hit) select(hit);
   if (!hit || event.target.closest(".music-seek")) return;
   const item = itemFromEl(hit);
-  if (isGuestTarget(item)) {
+  if (isGuestTarget(item) && !isGuestNudgeTarget(item)) {
     event.preventDefault();
     if (document.activeElement?.blur) document.activeElement.blur();
     return;
+  }
+  if (isGuestNudgeTarget(item)) {
+    event.preventDefault();
+    if (document.activeElement?.blur) document.activeElement.blur();
   }
   const r = hit.getBoundingClientRect();
   if (already && item?.kind === "hero" && hit.dataset.canMove !== "1") {
@@ -1324,7 +1350,7 @@ function bindTargets() {
   TARGETS.forEach((item) => {
     const nodes = [...document.querySelectorAll(item.sel)];
     item.el = nodes[0] || null;
-    if (isDogamTarget(item)) return;
+    if (isDogamTarget(item) || isCssLockedLayout(item)) return;
     nodes.forEach((el) => {
       el.classList.add("layout-target");
       if (item.move === "dbl") el.setAttribute("data-move", "dbl");
@@ -1372,7 +1398,7 @@ window.addEventListener(
   "wheel",
   (event) => {
     if (!editing() || !selected) return;
-    if (event.target.closest(".layout-hud")) return;
+    if (event.target.closest(".layout-hud, .layout-edit-open")) return;
     if (event.target.closest("input, textarea, .guest-list")) return;
     const item = itemFromEl(selected);
     if ((item?.kind === "type" || item?.kind === "tags") && !event.altKey) return;
@@ -1408,9 +1434,11 @@ window.addEventListener(
     if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
     const step = event.altKey ? 0.25 : event.shiftKey ? 5 : 1;
     if (event.key === "ArrowLeft") {
+      if (itemFromEl(selected)?.axis === "y") return;
       event.preventDefault();
       nudge(-step, 0);
     } else if (event.key === "ArrowRight") {
+      if (itemFromEl(selected)?.axis === "y") return;
       event.preventDefault();
       nudge(step, 0);
     } else if (event.key === "ArrowUp") {
