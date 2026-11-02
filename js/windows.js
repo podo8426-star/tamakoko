@@ -158,7 +158,7 @@ function playRadio(n) {
   window.pauseHomeBgm?.();
   radioHeld = true;
   radioAudio.volume = 0.38;
-  radioAudio.src = `./assets/media/radio-0${n}.mp3`;
+  radioAudio.src = `./assets/media/radio-0${n}.mp3?v=${n === 1 ? 2 : 1}`;
   radioAudio.play().catch(() => {});
 }
 

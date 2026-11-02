@@ -13,7 +13,7 @@ const LAYOUT_SEED = {
   ".music": { left: "3.7359%", top: "74.9047%", width: "20.3994%" },
   ".music-play": { left: "86.0953%", top: "29.0714%", width: "4.6899%" },
   ".music-seek": { left: "31.2444%", top: "60.8212%", width: "58.0205%" },
-  ".welcome": { left: "4.5456%", top: "88.8341%", width: "19.0038%" },
+  ".welcome": { left: "4.5453%", top: "88.5164%", width: "19.0038%" },
   ".point": { left: "73.0740%", top: "14.3765%", width: "2.9595%" },
   '.nav-btn[data-page="home"]': { left: "79.5817%", top: "6.7509%", width: "7.1848%" },
   '.nav-btn[data-page="dogam"]': { left: "85.6694%", top: "6.6771%", width: "7.1848%" },
@@ -39,7 +39,7 @@ const LAYOUT_SEED = {
   ".file-cat": { left: "79.3851%", top: "67.0305%", width: "11.6550%" },
   ".use-tip": { left: "93.5018%", top: "87.9495%", width: "5.1268%" },
   ".watch-clock": { left: "6.9769%", top: "38.6886%", width: "83.1089%" },
-  ".glitter-left": { left: "2.0710%", top: "25.4157%", width: "24.8120%" },
+  ".glitter-left": { left: "2.2798%", top: "25.3831%", width: "24.7424%" },
   ".glitter-right": { left: "88.3314%", top: "16.8138%", width: "8.4997%" },
 };
 
@@ -52,7 +52,7 @@ const GUEST_SEED = {
 };
 const TITLE_ALIGN_KEY = "tamakoko-title-align-v1";
 const WATCH_CLOCK_NUDGE_KEY = "tamakoko-watch-clock-nudge-v1";
-const HOME_GLITTER_LOCK_KEY = "tamakoko-home-glitter-lock-v1";
+const HOME_GLITTER_LOCK_KEY = "tamakoko-home-glitter-lock-v2";
 const GUEST_LAYOUT_RESET_KEY = "tamakoko-guest-layout-v2";
 const DOGAM_LAYOUT_RESET_KEY = "tamakoko-dogam-layout-v3";
 const HERO_NO_RESET_KEY = "tamakoko-hero-no-reset-v2";
