@@ -48,7 +48,25 @@ GALMURI_FACE_FILES = {
     "GalmuriMono11-Regular": "GalmuriMono11.ttf",
 }
 GALMURI_FAMILIES = tuple(GALMURI_FACE_FILES)
-KNOWN = set(NEO_FAMILIES + DNF_FAMILIES + PILGI_FAMILIES + GOTHIC_FAMILIES + GALMURI_FAMILIES)
+HAKGYO_FAMILIES = (
+    "HakgyoansimBombanghakR",
+    "Hakgyoansim Bombanghak",
+    "TypoBearRabbitB03OTF-KSCpc-EUC-H",
+    "Typo_BearRabbit",
+)
+IYAGI_FAMILIES = (
+    "DOSIyagiMedium",
+    "DOSIyagiBoldface",
+)
+KNOWN = set(
+    NEO_FAMILIES
+    + DNF_FAMILIES
+    + PILGI_FAMILIES
+    + GOTHIC_FAMILIES
+    + GALMURI_FAMILIES
+    + HAKGYO_FAMILIES
+    + IYAGI_FAMILIES
+)
 GOTHIC_SVGS = [
     "radio-window.svg",
     "bad-trash.svg",
@@ -159,6 +177,10 @@ def b64_for(fam: str, faces: dict[str, str]) -> str | None:
         return faces.get("gothic")
     if fam in GALMURI_FACE_FILES:
         return faces.get(fam)
+    if fam in HAKGYO_FAMILIES:
+        return faces.get("hakgyo")
+    if fam in IYAGI_FAMILIES:
+        return faces.get("iyagi")
     if fam in NEO_FAMILIES:
         return faces.get("neo")
     return None
@@ -225,6 +247,42 @@ def embed_galmuri_faces(faces: dict[str, str], unique: str) -> None:
         print("galmuri subset", out.name, out.stat().st_size)
 
 
+def load_woff(name: str) -> str:
+    return base64.b64encode((FONTS / name).read_bytes()).decode("ascii")
+
+
+def calendar_text() -> str:
+    return (
+        tspan_text(ASSETS / "day-window.svg")
+        + "오늘의 날짜는November입동수능크리스마스세계 어린이의 날무비데이"
+        + "샌드위치의 날세계 자유의 날거북이 입양의 날소설순국선열의 날"
+    )
+
+
+def embed_calendar_faces(faces: dict[str, str]) -> None:
+    text = calendar_text()
+    hakgyo_src = FONTS / "HakgyoansimBombanghakR.woff2"
+    iyagi_src = FONTS / "DOSIyagiBoldface.ttf"
+    if hakgyo_src.exists():
+        hakgyo_out = FONTS / "HakgyoansimBombanghakR.subset.woff"
+        subset_to_woff(hakgyo_src, hakgyo_out, text)
+        faces["hakgyo"] = base64.b64encode(hakgyo_out.read_bytes()).decode("ascii")
+        print("hakgyo subset", hakgyo_out.stat().st_size)
+    if iyagi_src.exists():
+        iyagi_out = FONTS / "DOSIyagiBoldface.subset.woff"
+        subset_to_woff(iyagi_src, iyagi_out, text)
+        faces["iyagi"] = base64.b64encode(iyagi_out.read_bytes()).decode("ascii")
+        print("iyagi subset", iyagi_out.stat().st_size)
+    for name, key in (
+        ("DOSGothic.subset.woff", "gothic"),
+        ("Galmuri11.subset.woff", "Galmuri11"),
+        ("Galmuri11-Bold.subset.woff", "Galmuri11-Bold"),
+    ):
+        path = FONTS / name
+        if path.exists() and key not in faces:
+            faces[key] = load_woff(name)
+
+
 def embed_dos_faces(faces: dict[str, str], unique: str) -> None:
     pilgi_src = FONTS / "DOSPilgi.ttf"
     gothic_src = FONTS / "DOSGothic.ttf"
@@ -244,6 +302,12 @@ def embed_dos_faces(faces: dict[str, str], unique: str) -> None:
 
 
 def main() -> None:
+    if "--calendar" in sys.argv:
+        faces: dict[str, str] = {}
+        embed_calendar_faces(faces)
+        inject(ASSETS / "day-window.svg", faces)
+        return
+
     windows_only = "--windows" in sys.argv or "--radio" in sys.argv
     unique = "".join(sorted(set(ui_text())))
     print("glyph count", len(unique))
