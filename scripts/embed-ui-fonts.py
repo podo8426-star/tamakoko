@@ -30,7 +30,17 @@ DNF_FAMILIES = (
     "DNF Bit Bit v2",
     "DNFBitBitv2",
 )
-KNOWN = set(NEO_FAMILIES + DNF_FAMILIES)
+PILGI_FAMILIES = (
+    "DOSPilgiMedium",
+    "DOSPilgi",
+)
+GOTHIC_FAMILIES = (
+    "DOSGothic",
+)
+KNOWN = set(NEO_FAMILIES + DNF_FAMILIES + PILGI_FAMILIES + GOTHIC_FAMILIES)
+RADIO_SVGS = [
+    "radio-window.svg",
+]
 
 SVGS = [
     "home-button.svg",
@@ -108,14 +118,28 @@ def needed_families(svg_text: str) -> list[str]:
     return names
 
 
-def inject(svg: Path, neo_b64: str, dnf_b64: str) -> None:
+def b64_for(fam: str, faces: dict[str, str]) -> str | None:
+    if fam in DNF_FAMILIES:
+        return faces.get("dnf")
+    if fam in PILGI_FAMILIES:
+        return faces.get("pilgi")
+    if fam in GOTHIC_FAMILIES:
+        return faces.get("gothic")
+    if fam in NEO_FAMILIES:
+        return faces.get("neo")
+    return None
+
+
+def inject(svg: Path, faces: dict[str, str]) -> None:
     raw = svg.read_text(encoding="utf-8")
-    families = [fam for fam in needed_families(raw) if fam in KNOWN]
+    families = [fam for fam in needed_families(raw) if fam in KNOWN and b64_for(fam, faces)]
     if not families:
         return
     block = "        " + MARKER_START + "\n"
     for fam in families:
-        b64 = dnf_b64 if fam in DNF_FAMILIES else neo_b64
+        b64 = b64_for(fam, faces)
+        if not b64:
+            continue
         block += css_face(fam, b64)
     block += "        " + MARKER_END + "\n\n"
     if MARKER_START in raw:
@@ -151,12 +175,33 @@ def main() -> None:
     dnf_out = FONTS / "DNFBitBitv2.subset.woff"
     subset_to_woff(neo_src, neo_out, unique)
     subset_to_woff(dnf_src, dnf_out, unique)
-    neo_b64 = base64.b64encode(neo_out.read_bytes()).decode("ascii")
-    dnf_b64 = base64.b64encode(dnf_out.read_bytes()).decode("ascii")
+    faces = {
+        "neo": base64.b64encode(neo_out.read_bytes()).decode("ascii"),
+        "dnf": base64.b64encode(dnf_out.read_bytes()).decode("ascii"),
+    }
     print("neo subset", neo_out.stat().st_size, "dnf subset", dnf_out.stat().st_size)
 
-    for name in SVGS:
-        inject(ASSETS / name, neo_b64, dnf_b64)
+    pilgi_src = FONTS / "DOSPilgi.ttf"
+    gothic_src = FONTS / "DOSGothic.ttf"
+    if pilgi_src.exists() or gothic_src.exists():
+        radio_text = "".join(tspan_text(ASSETS / name) for name in RADIO_SVGS)
+        radio_text += "라디오 속 플레이리스트클릭해봐!김뜻돌안예은오월오일미움받는 꿈여름"
+        if pilgi_src.exists():
+            pilgi_out = FONTS / "DOSPilgi.subset.woff"
+            subset_to_woff(pilgi_src, pilgi_out, radio_text + unique)
+            faces["pilgi"] = base64.b64encode(pilgi_out.read_bytes()).decode("ascii")
+            print("pilgi subset", pilgi_out.stat().st_size)
+        if gothic_src.exists():
+            gothic_out = FONTS / "DOSGothic.subset.woff"
+            subset_to_woff(gothic_src, gothic_out, radio_text + unique)
+            faces["gothic"] = base64.b64encode(gothic_out.read_bytes()).decode("ascii")
+            print("gothic subset", gothic_out.stat().st_size)
+
+    if "--radio" not in sys.argv:
+        for name in SVGS:
+            inject(ASSETS / name, faces)
+    for name in RADIO_SVGS:
+        inject(ASSETS / name, faces)
 
 
 if __name__ == "__main__":

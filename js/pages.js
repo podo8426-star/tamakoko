@@ -93,21 +93,15 @@ function spriteStyle(src) {
   return px ? `style="--px-w:${px.w};--px-h:${px.h}"` : "";
 }
 
-function rememberSpriteSize(img, src = img.getAttribute("src")) {
-  const w = img.naturalWidth;
-  const h = img.naturalHeight;
-  if (!w || !h) return;
-  if (src) SPRITE_PX[spritePath(src)] = { w, h };
-  img.style.setProperty("--px-w", String(w));
-  img.style.setProperty("--px-h", String(h));
+function applySpritePx(img, src = img.getAttribute("src")) {
+  const px = src ? spritePx(src) : null;
+  if (!px) return;
+  img.style.setProperty("--px-w", String(px.w));
+  img.style.setProperty("--px-h", String(px.h));
 }
 
 function setSpriteSrc(img, src) {
-  const px = spritePx(src);
-  if (px) {
-    img.style.setProperty("--px-w", String(px.w));
-    img.style.setProperty("--px-h", String(px.h));
-  }
+  applySpritePx(img, src);
   if (img.getAttribute("src") !== src) img.src = src;
 }
 
@@ -115,7 +109,6 @@ function preloadFriendSprites() {
   FRIENDS.forEach((friend) => {
     friend.stages.forEach((src) => {
       const img = new Image();
-      img.onload = () => rememberSpriteSize(img, src);
       img.src = src;
     });
   });
@@ -382,22 +375,12 @@ function bindGuestWipe() {
 }
 
 function scalePixelSprites(root = document.querySelector(".page-dogam")) {
-  root?.querySelectorAll("img").forEach((img) => {
-    const src = img.getAttribute("src");
-    const cached = src ? spritePx(src) : null;
-    if (cached) {
-      img.style.setProperty("--px-w", String(cached.w));
-      img.style.setProperty("--px-h", String(cached.h));
-    }
-    const apply = () => rememberSpriteSize(img, src);
-    if (img.complete && img.naturalWidth) apply();
-    else img.addEventListener("load", apply, { once: true });
-  });
+  root?.querySelectorAll(".dogam-hero img, .pixel-sprite").forEach((img) => applySpritePx(img));
 }
 
 function renderDogam(index, stage) {
   saveDogamCopy();
-  window.persistLayout?.();
+  if (window.isLayoutEditing?.()) window.persistLayout?.();
   const prevIndex = dogamIndex;
   const friend = FRIENDS[index];
   const text = friendText(index);
@@ -479,8 +462,10 @@ function renderDogam(index, stage) {
   scalePixelSprites();
   dogamReady = true;
   setDogamTextEditing(true);
-  if (window.isLayoutEditing?.()) setGuestCopyEditing(true);
-  window.refreshLayoutTargets?.();
+  if (window.isLayoutEditing?.()) {
+    setGuestCopyEditing(true);
+    window.refreshLayoutTargets?.();
+  }
 }
 
 window.getDogamIndex = () => dogamIndex;

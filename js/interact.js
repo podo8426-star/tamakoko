@@ -79,9 +79,15 @@ if (seaVideo) seaVideo.volume = 0.4;
 
 function playSfx(el, volume) {
   if (!el) return;
-  const sound = el.cloneNode();
-  sound.volume = volume;
-  sound.play().catch(() => {});
+  try {
+    el.pause();
+    el.currentTime = 0;
+  } catch {
+    /* ignore seek errors before metadata */
+  }
+  el.volume = volume;
+  const play = el.play();
+  if (play) play.catch(() => {});
 }
 
 function playClick() {
@@ -109,6 +115,28 @@ window.playFileSfx = playFileSfx;
 window.playPointSfx = playPointSfx;
 window.playGuestSfx = playGuestSfx;
 window.playWhooshSfx = playWhooshSfx;
+
+function unlockSfx() {
+  [clickSfx, fileSfx, pointSfx, guestSfx, whooshSfx].forEach((el) => {
+    if (!el) return;
+    const prev = el.volume;
+    el.muted = true;
+    el.volume = 0;
+    el.play()
+      .then(() => {
+        el.pause();
+        el.currentTime = 0;
+        el.muted = false;
+        el.volume = prev;
+      })
+      .catch(() => {
+        el.muted = false;
+        el.volume = prev;
+      });
+  });
+}
+
+document.addEventListener("pointerdown", unlockSfx, { once: true, capture: true });
 
 let popupTimer = 0;
 let lastMoodLine = "";
