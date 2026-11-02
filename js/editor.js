@@ -45,9 +45,9 @@ const LAYOUT_SEED = {
 
 const GUEST_SEED = {
   ".guest-logo": { left: "8.2883%", top: "3.9039%", width: "83.5105%" },
-  ".guest-intro": { left: "9.3694%", top: "33.4535%", width: "82.4197%" },
-  ".guest-form": { left: "8.8288%", top: "49.4294%", width: "82.4197%" },
-  ".guest-submit": { left: "8.8288%", top: "81.5616%", width: "82.4197%" },
+  ".guest-intro": { left: "9.3694%", top: "36.0153%", width: "82.4197%" },
+  ".guest-form": { left: "8.8288%", top: "53.0428%", width: "82.4197%" },
+  ".guest-submit": { left: "8.8288%", top: "87.669%", width: "82.4197%" },
   ".guest-list": { spriteY: "8px" },
 };
 const TITLE_ALIGN_KEY = "tamakoko-title-align-v1";
@@ -175,7 +175,6 @@ const TARGETS = [
 
 const stage = document.querySelector(".stage");
 const hud = buildHud();
-const openBtn = buildOpenBtn();
 let selected = null;
 let drag = null;
 let history = [];
@@ -877,8 +876,7 @@ function isGuestNudgeTarget(item) {
 function isCssLockedLayout(item) {
   const sel = item?.sel;
   if (!sel) return false;
-  if (sel === ".guest-logo" || sel === ".guest-list") return true;
-  if (isGuestTarget(item) && !isGuestNudgeTarget(item)) return true;
+  if (isGuestTarget(item)) return true;
   return (
     sel === ".dogam-hero" ||
     sel === ".dogam-no" ||
@@ -893,7 +891,7 @@ function stripCssLockedStore(store) {
   let patched = false;
   Object.keys(store).forEach((key) => {
     const base = key.split("@@")[0];
-    if (base === ".guest-logo" || base === ".guest-list") {
+    if (base.startsWith(".guest-")) {
       delete store[key];
       patched = true;
       return;
@@ -1007,7 +1005,6 @@ function setEditing(on) {
   if (!on) persistAll();
   document.body.dataset.edit = on ? "on" : "off";
   hud.hidden = !on;
-  openBtn.hidden = on;
   localStorage.setItem(EDIT_PREF, on ? "on" : "off");
   if (!on) select(null);
   else {
@@ -1051,16 +1048,6 @@ function buildHud() {
       </div>
     </div>
   `;
-  document.body.appendChild(el);
-  return el;
-}
-
-function buildOpenBtn() {
-  const el = document.createElement("button");
-  el.type = "button";
-  el.className = "layout-edit-open";
-  el.textContent = "편집 켜기";
-  el.addEventListener("click", () => setEditing(true));
   document.body.appendChild(el);
   return el;
 }

@@ -145,7 +145,7 @@
 .guest-form {
   position: absolute;
   left: 8.8288%;
-  top: 49.4294%;
+  top: 53.0428%;
   width: 82.4197%;
   z-index: 2;
   display: flex;
@@ -172,7 +172,7 @@
 .guest-intro {
   position: absolute;
   left: 9.3694%;
-  top: 33.4535%;
+  top: 36.0153%;
   width: 82.4197%;
   z-index: 2;
 }
@@ -252,7 +252,7 @@
 .guest-submit {
   position: absolute;
   left: 8.8288%;
-  top: 81.5616%;
+  top: 87.669%;
   width: 82.4197%;
   bottom: auto;
   z-index: 3;
