@@ -37,7 +37,18 @@ PILGI_FAMILIES = (
 GOTHIC_FAMILIES = (
     "DOSGothic",
 )
-KNOWN = set(NEO_FAMILIES + DNF_FAMILIES + PILGI_FAMILIES + GOTHIC_FAMILIES)
+GALMURI_FACE_FILES = {
+    "Galmuri11": "Galmuri11.ttf",
+    "Galmuri11-Bold": "Galmuri11-Bold.ttf",
+    "Galmuri11-Condensed": "Galmuri11-Condensed.ttf",
+    "Galmuri14": "Galmuri14.ttf",
+    "Galmuri14-Regular": "Galmuri14.ttf",
+    "Galmuri7": "Galmuri7.ttf",
+    "GalmuriMono11": "GalmuriMono11.ttf",
+    "GalmuriMono11-Regular": "GalmuriMono11.ttf",
+}
+GALMURI_FAMILIES = tuple(GALMURI_FACE_FILES)
+KNOWN = set(NEO_FAMILIES + DNF_FAMILIES + PILGI_FAMILIES + GOTHIC_FAMILIES + GALMURI_FAMILIES)
 GOTHIC_SVGS = [
     "radio-window.svg",
     "bad-trash.svg",
@@ -56,6 +67,11 @@ GOTHIC_SVGS = [
     "lucky-window-5.svg",
     "lucky-window-6.svg",
     "lucky-window-7.svg",
+]
+GALMURI_SVGS = [
+    *GOTHIC_SVGS,
+    "welcome.svg",
+    "use-tip-window.svg",
 ]
 
 SVGS = [
@@ -141,6 +157,8 @@ def b64_for(fam: str, faces: dict[str, str]) -> str | None:
         return faces.get("pilgi")
     if fam in GOTHIC_FAMILIES:
         return faces.get("gothic")
+    if fam in GALMURI_FACE_FILES:
+        return faces.get(fam)
     if fam in NEO_FAMILIES:
         return faces.get("neo")
     return None
@@ -189,6 +207,24 @@ def window_text() -> str:
     return text
 
 
+def embed_galmuri_faces(faces: dict[str, str], unique: str) -> None:
+    text = "".join(tspan_text(ASSETS / name) for name in GALMURI_SVGS) + unique
+    text += "파일저장기능도움말행운의 메세지from. 따끈치오늘의 날짜는"
+    used = set()
+    for fam, filename in GALMURI_FACE_FILES.items():
+        src = FONTS / filename
+        if not src.exists() or filename in used:
+            continue
+        used.add(filename)
+        out = FONTS / filename.replace(".ttf", ".subset.woff")
+        subset_to_woff(src, out, text)
+        b64 = base64.b64encode(out.read_bytes()).decode("ascii")
+        for alias, src_name in GALMURI_FACE_FILES.items():
+            if src_name == filename:
+                faces[alias] = b64
+        print("galmuri subset", out.name, out.stat().st_size)
+
+
 def embed_dos_faces(faces: dict[str, str], unique: str) -> None:
     pilgi_src = FONTS / "DOSPilgi.ttf"
     gothic_src = FONTS / "DOSGothic.ttf"
@@ -225,11 +261,16 @@ def main() -> None:
         print("neo subset", neo_out.stat().st_size, "dnf subset", dnf_out.stat().st_size)
 
     embed_dos_faces(faces, unique)
+    embed_galmuri_faces(faces, unique)
 
     if not windows_only:
         for name in SVGS:
             inject(ASSETS / name, faces)
-    for name in GOTHIC_SVGS:
+    seen = set()
+    for name in GOTHIC_SVGS + GALMURI_SVGS:
+        if name in seen:
+            continue
+        seen.add(name)
         inject(ASSETS / name, faces)
 
 

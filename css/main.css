@@ -28,8 +28,9 @@ img {
 }
 
 .viewport {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -37,8 +38,8 @@ img {
 
 .stage {
   position: relative;
-  width: min(100vw, calc(100vh * 16 / 9));
-  height: min(100vh, calc(100vw * 9 / 16));
+  width: min(100%, calc(100dvh * 16 / 9));
+  height: min(100dvh, calc(100% * 9 / 16));
   overflow: hidden;
   container-type: size;
 }
@@ -48,7 +49,7 @@ img {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   z-index: 0;
   pointer-events: none;
 }
@@ -66,8 +67,11 @@ img {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
-  height: auto;
+  max-width: none;
+  height: calc(56.04 / 1080 * 100%);
+  object-fit: fill;
   z-index: 20;
   pointer-events: none;
 }
@@ -326,6 +330,20 @@ img {
   font-style: normal;
   font-weight: 700;
   src: url("../assets/fonts/Galmuri11-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Galmuri14;
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/Galmuri14.subset.woff") format("woff");
+}
+
+@font-face {
+  font-family: Galmuri14-Regular;
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/Galmuri14.subset.woff") format("woff");
 }
 
 @font-face {
