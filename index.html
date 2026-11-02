@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>타마코코</title>
+    <link rel="stylesheet" href="./css/main.css?v=66" />
+    <link rel="stylesheet" href="./css/positions.css?v=46" />
+    <link rel="stylesheet" href="./css/editor.css?v=66" />
+    <link rel="stylesheet" href="./css/pages.css?v=89" />
+  </head>
+  <body>
+    <div class="viewport">
+      <div class="stage">
+        <img class="bg bg-home" src="./assets/background.png" alt="" />
+        <img class="bg bg-page" src="./assets/page-bg.png?v=32" alt="" hidden />
+
+        <img class="top-window" src="./assets/top-window.svg?v=13" alt="" />
+
+        <nav class="nav" aria-label="주요 메뉴">
+          <button type="button" class="nav-btn is-on" data-page="home" aria-label="홈">
+            <img class="nav-off" src="./assets/home-button-off.svg?v=31" alt="" />
+            <img class="nav-on" src="./assets/home-button-on.svg?v=31" alt="홈" />
+          </button>
+          <button type="button" class="nav-btn" data-page="dogam" aria-label="도감">
+            <img class="nav-off" src="./assets/dogam-button-off.svg?v=31" alt="" />
+            <img class="nav-on" src="./assets/dogam-button-on.svg?v=31" alt="도감" />
+          </button>
+          <button type="button" class="nav-btn" data-page="guestbook" aria-label="방명록">
+            <img class="nav-off" src="./assets/guestbook-button-off.svg?v=31" alt="" />
+            <img class="nav-on" src="./assets/guestbook-button-on.svg?v=31" alt="방명록" />
+          </button>
+        </nav>
+
+        <div class="home-ui">
+
+        <aside class="left">
+          <button type="button" class="logo-secret" aria-label="타마코코">
+            <img class="logo" src="./assets/logo.svg?v=2" alt="타마코코" />
+          </button>
+        </aside>
+
+        <div class="stats-card">
+          <img class="stats" src="./assets/stats.svg?v=27" alt="프로필" />
+          <img class="stats-face" src="./assets/dda-injang.svg" alt="" />
+          <div class="gauge gauge-happy">
+            <div class="gauge-fill-clip">
+              <img class="gauge-bar" src="./assets/happy-bar.svg?v=27" alt="" />
+            </div>
+            <img class="gauge-track" src="./assets/happy-gauge.svg?v=27" alt="" />
+          </div>
+          <div class="gauge gauge-angry">
+            <div class="gauge-fill-clip">
+              <img class="gauge-bar" src="./assets/angry-bar.svg?v=27" alt="" />
+            </div>
+            <img class="gauge-track" src="./assets/angry-gauge.svg?v=27" alt="" />
+          </div>
+          <div class="gauge gauge-anxiety">
+            <div class="gauge-fill-clip">
+              <img class="gauge-bar" src="./assets/sad-bar.svg?v=27" alt="" />
+            </div>
+            <img class="gauge-track" src="./assets/sad-gauge.svg?v=27" alt="" />
+          </div>
+          <span class="lv-num">LV. 3</span>
+          <span class="score-num">50</span>
+        </div>
+
+        <div class="music" aria-label="음악 플레이어">
+          <img src="./assets/music-bar-op.svg?v=28" alt="손님별" />
+          <button type="button" class="music-play" aria-label="재생 또는 일시정지">
+            <span class="music-icon music-pause" aria-hidden="true"></span>
+            <span class="music-icon music-go" aria-hidden="true"></span>
+          </button>
+          <input class="music-seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="재생 위치" />
+        </div>
+        <img class="welcome" src="./assets/welcome.svg?v=18" alt="따끈치의 방에 온 걸 환영해" />
+
+        <button type="button" class="point" aria-label="알람">
+          <img class="point-short" src="./assets/point.svg?v=18" alt="" />
+          <img class="point-open" src="./assets/point-open-1.svg?v=30" alt="" hidden />
+        </button>
+
+        <section class="room" aria-label="따끈치의 방">
+          <img class="room-bg" src="./assets/g-main-room.png" alt="" />
+          <div class="room-floor" aria-hidden="true"></div>
+
+          <button type="button" class="item item-door" data-item="door" aria-label="문">
+            <img src="./assets/g-door.png" alt="" />
+          </button>
+          <button type="button" class="item item-window" data-item="window" aria-label="창문">
+            <img class="window-view" src="./assets/g-window.png" alt="" />
+          </button>
+          <button type="button" class="item item-day" data-item="day" aria-label="달력">
+            <img src="./assets/g-day.png" alt="" />
+          </button>
+          <button type="button" class="item item-art" data-item="art" aria-label="그림">
+            <img src="./assets/g-art.png" alt="" />
+          </button>
+          <button type="button" class="item item-watch" data-item="watch" aria-label="시계">
+            <img src="./assets/g-watch.png" alt="" />
+          </button>
+          <button type="button" class="item item-snowball" data-item="snowball" aria-label="스노우볼">
+            <img src="./assets/g-snowball.png" alt="" />
+          </button>
+          <button type="button" class="item item-lamp" data-item="lamp" aria-label="램프">
+            <img src="./assets/g-lamp.png" alt="" />
+          </button>
+          <button type="button" class="item item-radio" data-item="radio" aria-label="라디오">
+            <img src="./assets/g-radio.png" alt="" />
+          </button>
+          <button type="button" class="item item-bed" data-item="bed" aria-label="침대">
+            <img src="./assets/g-bed.png" alt="" />
+            <img class="bed-sleep" src="./assets/dda-sleep.png" alt="" hidden />
+            <span class="zzz" aria-hidden="true" hidden>
+              <i>zzz....</i>
+              <i>Zzz...</i>
+              <i>zz</i>
+            </span>
+          </button>
+          <button type="button" class="item item-trash" data-item="trash" aria-label="쓰레기통">
+            <img src="./assets/g-trash.png" alt="" />
+          </button>
+          <button type="button" class="item item-sketch" data-item="sketch" aria-label="스케치북">
+            <img src="./assets/g-sketch-book.png" alt="" />
+          </button>
+
+          <div class="pet" aria-hidden="true">
+            <img class="pet-sprite" src="./assets/dda-front.png" alt="" />
+          </div>
+          <div class="room-dim" aria-hidden="true"></div>
+
+          <div class="item-popup" hidden><p class="item-popup-text"></p></div>
+        </section>
+
+        <div class="tama-btns">
+          <button type="button" class="tama-btn" data-mood="angry" aria-label="화남">
+            <img src="./assets/angry-button.svg?v=13" alt="화남" />
+          </button>
+          <button type="button" class="tama-btn" data-mood="happy" aria-label="기쁨">
+            <img src="./assets/happy-button.svg?v=13" alt="기쁨" />
+          </button>
+          <button type="button" class="tama-btn" data-mood="sad" aria-label="슬픔">
+            <img src="./assets/sad-button.svg?v=13" alt="슬픔" />
+          </button>
+        </div>
+
+        <aside class="right">
+          <button type="button" class="file-btn file-lucky" aria-label="행운의 메시지">
+            <img src="./assets/lucky-file.svg?v=18" alt="행운의 메시지.zip" />
+          </button>
+          <button type="button" class="file-btn file-mind" aria-label="마음을 다스리는 법">
+            <img src="./assets/mind-set-file.svg?v=18" alt="마음을 다스리는 법.zip" />
+          </button>
+          <button type="button" class="file-btn file-cat" aria-label="고양이 파일">
+            <img src="./assets/cat-file.svg?v=18" alt="바이러스가 아닙니다 전 고양이에요" />
+          </button>
+        </aside>
+
+        <button type="button" class="use-tip" aria-label="사용방법">
+          <img src="./assets/use-tip.svg?v=18" alt="사용방법" />
+        </button>
+        <img class="glitter-left" src="./assets/glitter-left.png?v=1" alt="" />
+        <img class="glitter-right" src="./assets/glitter-right.png?v=1" alt="" />
+        </div>
+
+        <div class="page-ui page-dogam" hidden>
+          <section class="page-window" aria-label="따끈치 도감">
+            <div class="page-chrome"></div>
+            <strong class="dogam-title" data-copy="title">♥ 타마코코 도감 ♥</strong>
+            <div class="page-body dogam-body">
+              <div class="dogam-detail">
+                <div class="dogam-hero">
+                  <span class="dogam-hero-no">No.001</span>
+                  <img class="pixel-sprite" src="./assets/friends/dda-4.svg" alt="" style="--px-w:40;--px-h:53" />
+                </div>
+                <div class="dogam-meta">
+                  <span class="no dogam-no">No.001</span>
+                  <h2 class="dogam-name" data-copy="name">따끈치</h2>
+                  <div class="dogam-tags"></div>
+                  <p class="dogam-blurb" data-copy="blurb">타마코코의 주인공. 언제나 따듯한 마음으로 바라봐 준다.
+김이 폴폴 나는 머리를 만지면 뜨끈하고 말랑한 감촉이 느껴진다.</p>
+                  <p class="dogam-evo-label" data-copy="evo">성장 도감</p>
+                  <div class="growth"></div>
+                </div>
+              </div>
+              <div class="dogam-shelf">
+                <p class="dogam-shelf-label" data-copy="shelf">타마코코 친구들</p>
+                <div class="dogam-grid"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="page-ui page-guestbook" hidden>
+          <section class="page-window" aria-label="응원의 말 방명록">
+            <div class="page-chrome"></div>
+            <strong class="guest-title" data-copy="title">♥ 타마코코 방명록 ♥</strong>
+            <div class="page-body guestbook-body">
+              <div class="guest-pane">
+                <div class="guest-logo">
+                  <img src="./assets/guestbook-logo.svg?v=5" alt="타마코코 방명록" />
+                </div>
+                <div class="guest-intro">
+                  <h2 class="guest-heading" data-copy="heading">너의 마음을 남겨줘!</h2>
+                  <p class="guest-help" data-copy="help">응원의 말, 느꼈던 감정, 무엇이든 좋아.<br />흔적을 남겨주면 큰 힘이 될 것 같아~</p>
+                </div>
+                <form class="guest-form" id="guest-form">
+                  <label class="guest-name-label">
+                    <span data-copy="nameLabel">이름</span>
+                    <input name="name" type="text" maxlength="12" required data-copy-ph="namePh" placeholder="별명도 괜찮아" />
+                  </label>
+                  <label class="guest-text-label">
+                    <span data-copy="textLabel">응원의 말</span>
+                    <textarea name="text" maxlength="120" required data-copy-ph="textPh" placeholder="지금 무슨 생각해?"></textarea>
+                  </label>
+                </form>
+                <button type="submit" class="guest-submit" form="guest-form"><span data-copy="submit">남기기</span></button>
+              </div>
+              <div class="guest-list" aria-live="polite">
+                <p class="guest-empty" data-copy="empty">아직 비어 있어.<br />첫 응원의 말을 남겨줄래?</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="modal" id="modal-sea" hidden>
+          <div class="window window-sea" role="dialog" aria-label="파도 소리 ASMR">
+            <img class="window-frame" src="./assets/sea-asmr.png" alt="" />
+            <video class="sea-video" src="./assets/media/sea.mp4" loop playsinline></video>
+            <button type="button" class="sea-play media-toggle" aria-label="영상 재생 또는 일시정지">
+              <img class="ctrl-pause" src="./assets/pause-btn.svg?v=22" alt="" />
+              <img class="ctrl-play" src="./assets/play-btn.svg?v=22" alt="" />
+            </button>
+            <button type="button" class="window-close sea-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-mind" hidden>
+          <div class="window window-mind" role="dialog" aria-label="마음을 다스리는 방법">
+            <img class="window-frame" src="./assets/mind-set-window.png?v=2" alt="" />
+            <button type="button" class="window-close mind-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-trash" hidden>
+          <div class="window window-trash" role="dialog" aria-label="나쁜 감정 쓰레기통">
+            <img class="window-frame" src="./assets/bad-trash.svg?v=27" alt="" />
+            <form class="trash-form">
+              <input
+                class="trash-input"
+                type="text"
+                maxlength="80"
+                placeholder="버리고 싶은 감정을 적어봐"
+                autocomplete="off"
+              />
+              <button type="submit" class="trash-dump" aria-label="버리기">버리기</button>
+            </form>
+            <button type="button" class="window-close trash-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-sketch" hidden>
+          <div class="window window-sketch" role="dialog" aria-label="끄적끄적 스케치북">
+            <img class="window-frame" src="./assets/sketch-book-window.svg?v=21" alt="" />
+            <canvas class="sketch-board" aria-label="화이트보드"></canvas>
+            <div class="sketch-tools">
+              <button type="button" class="sketch-tool is-on" data-tool="pen">펜</button>
+              <button type="button" class="sketch-tool" data-tool="erase">지우개</button>
+              <button type="button" class="sketch-tool" data-tool="clear">모두 지우기</button>
+            </div>
+            <button type="button" class="window-close sketch-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-watch" hidden>
+          <div class="window window-game" role="dialog" aria-label="지금 시각은?">
+            <img class="window-frame" src="./assets/watch-window.svg?v=35" alt="" />
+            <div class="watch-clock" aria-live="polite">
+              <span class="watch-ampm">AM</span>
+              <span class="watch-hm">12:00</span>
+            </div>
+            <button type="button" class="window-close game-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-art" hidden>
+          <div class="window window-game" role="dialog" aria-label="따끈치의 사진 컬렉션">
+            <img class="window-frame" src="./assets/art-window.svg?v=26" alt="" />
+            <div class="art-stage">
+              <button type="button" class="art-hit art-prev" aria-label="이전 사진"></button>
+              <div class="art-track"></div>
+              <button type="button" class="art-hit art-next" aria-label="다음 사진"></button>
+            </div>
+            <button type="button" class="window-close game-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-radio" hidden>
+          <div class="window window-radio" role="dialog" aria-label="라디오 플레이리스트">
+            <img class="window-frame" src="./assets/radio-window.svg?v=32" alt="" />
+            <div class="radio-hits">
+              <button type="button" data-track="1" aria-label="김뜻돌 여름여름여름"></button>
+              <button type="button" data-track="2" aria-label="wowaka Ura-Omote Lovers"></button>
+              <button type="button" data-track="3" aria-label="TeddyLoid D City Rock"></button>
+              <button type="button" data-track="4" aria-label="안예은 미움받는 꿈"></button>
+              <button type="button" data-track="5" aria-label="오월오일 Look My Moon"></button>
+              <button type="button" data-track="6" aria-label="Roselia PASSIONATE ANTHEM"></button>
+            </div>
+            <button type="button" class="window-close game-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-snow" hidden>
+          <div class="window window-game" role="dialog" aria-label="스노우볼">
+            <img class="window-frame" src="./assets/snow-window.svg?v=27" alt="" />
+            <video class="snow-video" src="./assets/media/snowball.mp4" loop playsinline></video>
+            <button type="button" class="snow-play media-toggle" aria-label="영상 재생 또는 일시정지">
+              <img class="ctrl-pause" src="./assets/pause-btn.svg?v=22" alt="" />
+              <img class="ctrl-play" src="./assets/play-btn.svg?v=22" alt="" />
+            </button>
+            <button type="button" class="window-close game-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-day" hidden>
+          <div class="window window-game" role="dialog" aria-label="오늘의 날짜는">
+            <img class="window-frame" src="./assets/day-window.svg?v=27" alt="" />
+            <div class="day-hl" aria-hidden="true"></div>
+            <button type="button" class="window-close game-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-selfie" hidden>
+          <div class="window window-selfie" role="dialog" aria-label="따끈치와 셀카 타임">
+            <img class="window-frame" src="./assets/self-camera-window.svg?v=48" alt="" />
+            <div class="selfie-body">
+              <div class="selfie-stage">
+                <div class="selfie-view">
+                  <video class="selfie-cam" autoplay playsinline muted></video>
+                  <img class="selfie-shot" alt="" hidden />
+                  <img class="selfie-frame" src="./assets/selfie-frame.png?v=6" alt="" />
+                  <div class="selfie-flash" aria-hidden="true"></div>
+                </div>
+              </div>
+              <div class="selfie-strip" aria-label="찍은 사진"></div>
+              <div class="selfie-actions">
+                <button type="button" class="selfie-shutter">찰칵</button>
+                <button type="button" class="selfie-live">카메라로</button>
+                <button type="button" class="selfie-delete">삭제하기</button>
+              </div>
+            </div>
+            <button type="button" class="window-close selfie-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-lucky" hidden>
+          <div class="window window-lucky" role="dialog" aria-label="행운의 메시지">
+            <img class="window-frame lucky-frame" src="./assets/lucky-window-1.svg?v=24" alt="" />
+            <button type="button" class="window-close game-close" aria-label="닫기"></button>
+          </div>
+        </div>
+
+        <div class="modal modal-tip" id="modal-tip" hidden>
+          <img class="tip-full" src="./assets/use-tip-window.svg?v=33" alt="타마코코 사용방법" />
+        </div>
+        <audio id="radio-audio" preload="auto"></audio>
+      </div>
+    </div>
+    <audio id="bgm" src="./assets/media/tamakoko.mp3" loop preload="auto"></audio>
+    <audio id="sfx-click" src="./assets/media/click.mp3" preload="auto"></audio>
+    <audio id="sfx-file" src="./assets/media/file-select.mp3?v=2" preload="auto"></audio>
+    <audio id="sfx-point" src="./assets/media/point.mp3?v=2" preload="auto"></audio>
+    <audio id="sfx-guest" src="./assets/media/guestbook.mp3" preload="auto"></audio>
+    <audio id="sfx-whoosh" src="./assets/media/magic1.mp3?v=1" preload="auto"></audio>
+    <script src="./js/interact.js?v=40"></script>
+    <script src="./js/windows.js?v=36"></script>
+    <script src="./js/stats.js?v=31"></script>
+    <script src="./js/pet.js?v=26"></script>
+    <script src="./js/sketch.js?v=22"></script>
+    <script src="./js/pages.js?v=74"></script>
+    <script src="./js/selfie.js?v=52"></script>
+    <script src="./js/editor.js?v=90"></script>
+  </body>
+</html>

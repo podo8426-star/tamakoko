@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 76.19 76.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #915fe2;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #8a61db;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="38.09" y1="74.55" x2="38.09" y2="1.36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e3d7f5"/>
+      <stop offset=".13" stop-color="#e0d4f4"/>
+      <stop offset=".22" stop-color="#dacaf2"/>
+      <stop offset=".31" stop-color="#cfbaee"/>
+      <stop offset=".39" stop-color="#c0a4e9"/>
+      <stop offset=".46" stop-color="#ac87e2"/>
+      <stop offset=".51" stop-color="#9c6fdd"/>
+      <stop offset=".52" stop-color="#a473dc"/>
+      <stop offset=".61" stop-color="#d58dd6"/>
+      <stop offset=".67" stop-color="#f39dd3"/>
+      <stop offset=".71" stop-color="#ffa4d2"/>
+      <stop offset=".96" stop-color="#f4f4ff"/>
+    </linearGradient>
+  </defs>
+  <g id="_게임기_상호작용_창" data-name="게임기 상호작용 창">
+    <g id="_파도소리" data-name="파도소리">
+      <g>
+        <g>
+          <g>
+            <path class="cls-1" d="M38.09,74.69C17.91,74.69,1.5,58.27,1.5,38.09S17.91,1.5,38.09,1.5s36.59,16.42,36.59,36.59-16.42,36.59-36.59,36.59Z"/>
+            <path class="cls-2" d="M38.09,3c19.38,0,35.09,15.71,35.09,35.09s-15.71,35.09-35.09,35.09S3,57.47,3,38.09,18.71,3,38.09,3h0ZM38.09,0C17.09,0,0,17.09,0,38.09s17.09,38.09,38.09,38.09,38.09-17.09,38.09-38.09S59.1,0,38.09,0h0Z"/>
+            <path class="cls-3" d="M38.09,3c19.38,0,35.09,15.71,35.09,35.09s-15.71,35.09-35.09,35.09S3,57.47,3,38.09,18.71,3,38.09,3h0ZM38.09,2.16C18.28,2.16,2.16,18.28,2.16,38.09s16.12,35.93,35.93,35.93,35.93-16.12,35.93-35.93S57.91,2.16,38.09,2.16h0Z"/>
+          </g>
+          <path class="cls-4" d="M38.09,8.83c16.16,0,29.26,13.1,29.26,29.26s-13.1,29.26-29.26,29.26-29.26-13.1-29.26-29.26,13.1-29.26,29.26-29.26h0ZM38.09,7.83c-16.69,0-30.26,13.57-30.26,30.26s13.57,30.26,30.26,30.26,30.26-13.57,30.26-30.26S54.78,7.83,38.09,7.83h0Z"/>
+        </g>
+        <polygon class="cls-2" points="54.67 37.72 29.65 23.27 29.65 52.16 54.67 37.72"/>
+      </g>
+    </g>
+  </g>
+</svg>

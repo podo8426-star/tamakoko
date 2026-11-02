@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 99.87 102.87">
+  <defs>
+    <style>
+      .cls-1 {
+        filter: url(#drop-shadow-1);
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke: #ff73c3;
+        stroke-miterlimit: 10;
+        stroke-width: 5px;
+      }
+
+      .cls-3 {
+        fill: #ff73c3;
+      }
+    </style>
+    <filter id="drop-shadow-1" x="0" y="0" width="99.87" height="102.87" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="3"/>
+      <feGaussianBlur result="blur" stdDeviation="0"/>
+      <feFlood flood-color="#700056" flood-opacity=".7"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="_다마고치" data-name="다마고치">
+    <g class="cls-1">
+      <circle id="_버튼3" data-name="버튼3" class="cls-2" cx="49.94" cy="49.94" r="47.44"/>
+    </g>
+    <g>
+      <rect class="cls-3" x="60.86" y="32.53" width="7.03" height="7.05"/>
+      <rect class="cls-3" x="32.7" y="32.53" width="7.03" height="7.05"/>
+      <rect class="cls-3" x="60.86" y="60.73" width="7.03" height="7.05"/>
+      <rect class="cls-3" x="32.7" y="60.73" width="7.03" height="7.05"/>
+      <polygon class="cls-3" points="60.86 46.63 60.86 39.59 53.81 39.59 53.81 25.51 46.74 25.51 46.74 39.59 39.72 39.59 39.72 46.63 25.62 46.63 25.62 53.7 39.72 53.7 39.72 60.73 46.74 60.73 46.74 74.82 53.81 74.82 53.81 60.73 60.86 60.73 60.86 53.7 74.93 53.7 74.93 46.63 60.86 46.63"/>
+    </g>
+  </g>
+</svg>

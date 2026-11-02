@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1843 1037">
+  <!-- Generator: Adobe Illustrator 30.8.2, SVG Export Plug-In . SVG Version: 2.1.4 Build 7)  -->
+  <defs>
+    <style>
+      .st0, .st1 {
+        fill: none;
+      }
+
+      .st0, .st1, .st2 {
+        stroke: #a100ff;
+        stroke-miterlimit: 10;
+      }
+
+      .st3 {
+        filter: url(#outer-glow-1);
+      }
+
+      .st4, .st5, .st6 {
+        isolation: isolate;
+      }
+
+      .st5 {
+        fill: #3a0063;
+        font-family: Galmuri14-Regular, Galmuri14;
+        font-size: 30px;
+      }
+
+      .st7, .st6 {
+        fill: #fff;
+      }
+
+      .st8 {
+        fill: #a100ff;
+      }
+
+      .st9 {
+        fill: #f8f8f8;
+      }
+
+      .st1 {
+        stroke-linecap: round;
+        stroke-width: 5.1px;
+      }
+
+      .st2 {
+        fill: url(#linear-gradient);
+        stroke-width: 6px;
+      }
+
+      .st6 {
+        font-family: DOSGothic, DOSGothic;
+        font-size: 43.9px;
+      }
+    </style>
+    <filter id="outer-glow-1" x="0" y="0" width="1843" height="1037" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="blur" stdDeviation="6"/>
+      <feFlood flood-color="#5700ff" flood-opacity=".8"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="921.1" y1="-19.1" x2="921.1" y2="974.4" gradientTransform="translate(0 996) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d6d4ff"/>
+      <stop offset=".6" stop-color="#e9d3ff"/>
+      <stop offset=".8" stop-color="#f9d2ff"/>
+    </linearGradient>
+  </defs>
+  <g id="_옆에_파일_창">
+    <g id="_셀카타임">
+      <g id="_파일_창">
+        <g class="st3">
+          <rect class="st2" x="21.2" y="21.6" width="1799.9" height="993.5" rx="26.3" ry="26.3"/>
+          <path class="st8" d="M53.4,22.9h1735.6c17.4,0,31.5,14.1,31.5,31.5v71.8H21.8V54.4c0-17.4,14.1-31.5,31.5-31.5,0,0,0,0,.1,0Z"/>
+          <g>
+            <rect class="st9" x="1746" y="59.7" width="38.5" height="37.5" rx="8.2" ry="8.2"/>
+            <g>
+              <line class="st1" x1="1756.8" y1="70.2" x2="1773.7" y2="86.6"/>
+              <line class="st1" x1="1773.7" y1="70.2" x2="1756.8" y2="86.6"/>
+            </g>
+          </g>
+        </g>
+        <rect class="st7" x="24.5" y="126.1" width="1792.4" height="65.8"/>
+        <path class="st7" d="M1793.1,26.8c12.3,0,22.2,10,22.2,22.2v937.2c0,12.3-10,22.2-22.2,22.2H47c-12.3,0-22.2-10-22.2-22.2V49c0-12.3,10-22.2,22.2-22.2h1746.1ZM1793.1,22.8H47c-14.5,0-26.2,11.8-26.2,26.2v937.2c0,14.5,11.8,26.2,26.2,26.2h1746.1c14.5,0,26.2-11.8,26.2-26.2V49c0-14.5-11.8-26.2-26.2-26.2h0Z"/>
+        <g class="st4">
+          <g class="st4">
+            <g class="st4">
+              <text class="st5" transform="translate(62.3 170.8)"><tspan x="0" y="0">파일(F)</tspan></text>
+            </g>
+          </g>
+        </g>
+        <g class="st4">
+          <g class="st4">
+            <g class="st4">
+              <text class="st5" transform="translate(198.6 170.8)"><tspan x="0" y="0">저장(S)</tspan></text>
+            </g>
+          </g>
+        </g>
+        <g class="st4">
+          <g class="st4">
+            <g class="st4">
+              <text class="st5" transform="translate(336.4 170.8)"><tspan x="0" y="0">기능(A)</tspan></text>
+            </g>
+          </g>
+        </g>
+        <g class="st4">
+          <g class="st4">
+            <g class="st4">
+              <text class="st5" transform="translate(462.1 170.8)"><tspan x="0" y="0">도움말(Q)</tspan></text>
+            </g>
+          </g>
+        </g>
+        <line class="st0" x1="24.5" y1="192.3" x2="1815.2" y2="192.3"/>
+        <g class="st4">
+          <g class="st4">
+            <g class="st4">
+              <text class="st6" transform="translate(146.9 94.8)"><tspan x="0" y="0">따끈치와 셀카 타임 ㅋㅋ</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <polygon class="st7" points="110.5 76.7 107.2 76.7 107.2 70.1 103.9 70.1 103.9 63.5 100.6 63.5 100.6 60.2 97.3 60.2 97.3 56.9 84.1 56.9 84.1 60.2 80.8 60.2 80.8 63.5 77.5 63.5 77.5 70.1 74.2 70.1 74.2 76.7 70.9 76.7 70.9 93.2 74.2 93.2 74.2 96.5 77.5 96.5 77.5 99.9 103.9 99.9 103.9 96.5 107.2 96.5 107.2 93.2 110.5 93.2 110.5 76.7"/>
+</svg>

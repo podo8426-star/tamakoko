@@ -1,0 +1,704 @@
+.page-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.page-ui > .page-window {
+  pointer-events: auto;
+}
+
+.page-window {
+  position: relative;
+  width: min(86%, 1580px);
+  height: min(78%, 820px);
+  margin-top: 3.2%;
+  border: 0.28cqw solid #ff51ae;
+  border-radius: 1.1cqw;
+  background: rgba(255, 246, 252, 0.94);
+  box-shadow: 0 0.45cqw 0 #ff7ad8, 0 0.9cqw 1.6cqw rgba(161, 0, 255, 0.18);
+  overflow: hidden;
+}
+
+.page-dogam .page-window,
+.page-guestbook .page-window {
+  margin-top: 4.35%;
+  box-shadow: 0 0.3cqw 0 #ff7ad8, 0 0.58cqw 1.1cqw rgba(161, 0, 255, 0.16);
+}
+
+.page-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  height: 3.4cqw;
+  padding: 0 1.2cqw;
+  background: linear-gradient(#ff8ec8, #ff51ae);
+  color: #fff;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 1.15cqw;
+}
+
+.page-chrome strong {
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 1.25cqw;
+  letter-spacing: 0.04em;
+}
+
+.page-dogam .dogam-title,
+.page-guestbook .guest-title {
+  position: absolute;
+  left: 2.15%;
+  top: 1.85%;
+  width: auto;
+  z-index: 4;
+  color: #fff;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 1.25cqw;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.page-dots {
+  display: flex;
+  gap: 0.28cqw;
+}
+
+.page-dots span {
+  width: 0.72cqw;
+  height: 0.72cqw;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.85;
+}
+
+.page-body {
+  display: grid;
+  height: calc(100% - 3.4cqw);
+  min-height: 0;
+}
+
+.guestbook-body {
+  position: relative;
+  display: block;
+  height: 100%;
+  min-height: 0;
+}
+
+.guest-pane {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 34%;
+  border-right: 0.16cqw solid #ffc4e8;
+  background: #fff0f8;
+}
+
+.guest-logo {
+  position: absolute;
+  left: 8.2883%;
+  top: 3.9039%;
+  width: 83.5105%;
+  z-index: 2;
+}
+
+.guest-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.dogam-body {
+  grid-template-rows: 1fr auto;
+  min-height: 0;
+}
+
+.guest-form {
+  position: absolute;
+  left: 8.8288%;
+  top: 49.4294%;
+  width: 82.4197%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55cqw;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.page-dogam .page-chrome,
+.page-guestbook .page-chrome {
+  justify-content: flex-start;
+  padding-left: 1.4cqw;
+}
+
+.guest-form h2,
+.dogam-stage h2 {
+  color: #a100ff;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 1.35cqw;
+}
+
+.guest-intro {
+  position: absolute;
+  left: 9.3694%;
+  top: 33.4535%;
+  width: 82.4197%;
+  z-index: 2;
+}
+
+.guest-heading {
+  margin: 0;
+  color: #ff51ae;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 1.35cqw;
+}
+
+.guest-form p,
+.dogam-meta p {
+  color: #9a4aa8;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 1.18cqw;
+  line-height: 1.45;
+  white-space: pre-line;
+}
+
+.dogam-blurb {
+  position: absolute;
+  left: -2.1127%;
+  top: 41.4724%;
+  width: 100%;
+  font-size: 1.372cqw;
+}
+
+.guest-help {
+  margin: 0.42cqw 0 0;
+  color: #9a4aa8;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 1.18cqw;
+  line-height: 1.45;
+  white-space: pre-line;
+}
+
+.guest-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28cqw;
+  color: #c63d96;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 0.88cqw;
+}
+
+.guest-form input,
+.guest-form textarea,
+.guest-submit {
+  box-sizing: border-box;
+}
+
+.guest-form input,
+.guest-form textarea {
+  width: 100%;
+  border: 0.16cqw solid #ff7ad8;
+  border-radius: 0.42cqw;
+  background: #fff;
+  color: #6b2a86;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 1.05cqw;
+  outline: none;
+}
+
+.guest-form input {
+  height: 2.3cqw;
+  padding: 0 0.7cqw;
+}
+
+.guest-form textarea {
+  min-height: 7.6cqw;
+  padding: 0.55cqw 0.7cqw;
+  resize: none;
+  line-height: 1.4;
+}
+
+.guest-submit {
+  position: absolute;
+  left: 8.8288%;
+  top: 81.5616%;
+  width: 82.4197%;
+  bottom: auto;
+  z-index: 3;
+  height: 2.7cqw;
+  border-radius: 0.42cqw;
+  border: 0.16cqw solid #ff51ae;
+  background: #ff51ae;
+  color: #fff;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 1.05cqw;
+}
+
+.guest-submit:hover {
+  background: #ff51ae;
+  border-color: #ff51ae;
+}
+
+.guest-submit:active {
+  background: #a100ff;
+  border-color: #a100ff;
+}
+
+.guest-list {
+  position: absolute;
+  left: 34%;
+  top: var(--guest-list-y, 8px);
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 1.1cqw 1.2cqw 0.6cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7cqw;
+  overscroll-behavior: contain;
+}
+
+.guest-list::after {
+  content: "";
+  flex: 0 0 4.2cqw;
+}
+
+.dogam-name,
+.dogam-blurb,
+.dogam-tags span {
+  cursor: text;
+}
+
+.dogam-name:focus,
+.dogam-blurb:focus,
+.dogam-tags span:focus {
+  outline: 1px dashed rgba(161, 0, 255, 0.4);
+  outline-offset: 2px;
+}
+
+body[data-edit="on"] [data-copy],
+body[data-edit="on"] .dogam-tags span {
+  outline: 1px dashed rgba(161, 0, 255, 0.35);
+  cursor: text;
+}
+
+.guest-card {
+  padding: 0.75cqw 0.9cqw 0.7cqw;
+  border: 0.14cqw solid #ffb6e2;
+  border-radius: 0.7cqw;
+  background: #fff;
+  box-shadow: 0.18cqw 0.18cqw 0 #ffe3f4;
+}
+
+.guest-card header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6cqw;
+  margin-bottom: 0.35cqw;
+  color: #ff51ae;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 0.88cqw;
+}
+
+.guest-card strong {
+  color: #a100ff;
+}
+
+.guest-card p {
+  color: #6b2a86;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 1.02cqw;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.guest-empty {
+  margin: auto;
+  color: #d08bbc;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 1.05cqw;
+  text-align: center;
+}
+
+.page-dogam {
+  --dot: 0.149cqw;
+  --shelf-dot: 0.094cqw;
+}
+
+.dogam-detail {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  min-height: 0;
+  padding: 1.45cqw 1.55cqw 1.55cqw;
+  gap: 1.7cqw;
+}
+
+.dogam-hero {
+  --hero-dot: 0.32cqw;
+  --hero-x: -5.793px;
+  --hero-y: 2.121px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+  width: 29.7614cqw;
+  height: 47.8085cqh;
+  aspect-ratio: auto;
+  max-height: none;
+  min-height: 0;
+  overflow: hidden;
+  padding: 1.8cqw 0.9cqw 1.2cqw;
+  border: 0.14cqw solid #ffc4e8;
+  border-radius: 1.05cqw;
+  background: #fff;
+}
+
+.dogam-hero-no {
+  position: absolute;
+  left: 0.78cqw;
+  top: 0.58cqw;
+  z-index: 2;
+  color: #ff51ae;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 1.16cqw;
+  opacity: 0.62;
+  pointer-events: auto;
+}
+
+.dogam-hero img {
+  width: calc(var(--px-w, 32) * var(--hero-dot));
+  height: calc(var(--px-h, 32) * var(--hero-dot));
+  max-width: none;
+  max-height: none;
+  transform: translate3d(var(--hero-x), var(--hero-y), 0);
+  transition: none;
+  backface-visibility: hidden;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: auto;
+}
+
+.dogam-meta {
+  position: relative;
+  min-width: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55cqw;
+}
+
+.dogam-no {
+  position: absolute;
+  left: -1.8509%;
+  top: 4.2434%;
+  width: 100%;
+  color: #ff51ae;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 1.18cqw;
+}
+
+.dogam-name {
+  position: absolute;
+  left: -2.4849%;
+  top: 10.4101%;
+  width: 100%;
+  margin: 0;
+  color: #a100ff;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 3.702cqw;
+  letter-spacing: 0.04em;
+  font-weight: normal;
+  white-space: pre-line;
+}
+
+.dogam-tags {
+  --tag-font: 0.7cqw;
+  position: absolute;
+  left: -2.0966%;
+  top: 31.0034%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35cqw;
+}
+
+.dogam-tags span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 1.48cqw;
+  min-height: 1.48cqw;
+  padding: 0 0.78cqw;
+  border-radius: 999px;
+  background: #a100ff;
+  color: #fff;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: var(--tag-font);
+  line-height: 1;
+}
+
+.dogam-evo-label {
+  display: none;
+}
+
+.growth {
+  --egg-sprite-y: 0px;
+  --baby-sprite-y: 0px;
+  --teen-sprite-y: 0px;
+  --adult-sprite-x: 0px;
+  --adult-sprite-y: 0px;
+  --chip-x: 0px;
+  --chip-y: 0px;
+  position: absolute;
+  left: -2.9625%;
+  top: 59.6866%;
+  width: 99.9926%;
+  height: 39.3668%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  flex: 0 0 auto;
+  margin-top: 0;
+  margin-bottom: 0.35cqw;
+  gap: 0.5cqw;
+  padding-top: 0.9cqw;
+}
+
+.growth-arrow {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  width: 1.9cqw;
+  height: 2.4cqw;
+  color: #ff51ae;
+}
+
+.growth-arrow svg {
+  display: block;
+  width: 1.75cqw;
+  height: 1.75cqw;
+  overflow: visible;
+}
+
+.growth button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  gap: 0.22cqw;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.32cqw 0.3cqw 0.35cqw;
+  overflow: hidden;
+  border-radius: 0.75cqw;
+  background: #fff;
+  border: 0.14cqw solid #ffc4e8;
+}
+
+.growth-chip {
+  position: absolute;
+  left: calc(0.48cqw + var(--chip-x, 0px));
+  right: auto;
+  top: calc(0.48cqw + var(--chip-y, 0px));
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 2.28cqw;
+  min-width: 2.28cqw;
+  min-height: 0.9cqw;
+  padding: 0.12cqw 0;
+  border-radius: 0.34cqw;
+  background: #ff8ec8;
+  color: #fff;
+  font-family: "Neo둥근모 Pro", "NeoDunggeunmo Pro", Galmuri11, sans-serif;
+  font-size: 0.48cqw;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.growth button.is-on {
+  border-color: #a100ff;
+  background: #ffe9f7;
+  box-shadow: 0 0 0 0.1cqw rgba(161, 0, 255, 0.18);
+}
+
+.growth-sprite {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.growth button[data-stage="0"] .growth-sprite,
+.growth button[data-stage="1"] .growth-sprite,
+.growth button[data-stage="2"] .growth-sprite {
+  padding-bottom: 0.75cqw;
+}
+
+.pixel-sprite,
+.dogam-hero img,
+.growth img,
+.dogam-card img {
+  transition: none;
+}
+
+.growth img {
+  display: block;
+  width: calc(var(--px-w, 32) * var(--dot));
+  height: calc(var(--px-h, 32) * var(--dot));
+  max-width: none;
+  max-height: none;
+  transition: none;
+  backface-visibility: hidden;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.growth button[data-stage="0"] img {
+  transform: translateY(var(--egg-sprite-y));
+}
+
+.growth button[data-stage="1"] img {
+  transform: translateY(var(--baby-sprite-y));
+}
+
+.growth button.is-akuma-baby img {
+  transform: translate3d(-0.18cqw, var(--baby-sprite-y), 0);
+}
+
+.growth button[data-stage="2"] img {
+  transform: translateY(var(--teen-sprite-y));
+}
+
+.growth button[data-stage="3"] img {
+  transform: translate3d(var(--adult-sprite-x), var(--adult-sprite-y), 0);
+}
+
+.growth button.is-ggu-adult img {
+  transform: translate3d(var(--adult-sprite-x), var(--adult-sprite-y), 0) scale(0.86);
+  transform-origin: bottom center;
+}
+
+.growth button.is-akuma-adult img {
+  transform: translate3d(calc(-0.2cqw + var(--adult-sprite-x)), var(--adult-sprite-y), 0);
+}
+
+.dogam-shelf {
+  border-top: 0.14cqw solid #ffc4e8;
+  background: #ffe9f5;
+  padding: 1.05cqw 1.58cqw 0.85cqw;
+}
+
+.dogam-shelf-label {
+  display: none;
+}
+
+.dogam-grid {
+  --shelf-sprite-y: -11px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.7cqw;
+  align-items: stretch;
+}
+
+.dogam-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 8cqw;
+  padding: 1.55cqw 0.25cqw 0.5cqw;
+  border-radius: 0.45cqw;
+  background: #fff;
+  border: 0.14cqw solid #ffc4e8;
+}
+
+.dogam-card.is-on {
+  border-color: #a100ff;
+  box-shadow: 0 0 0 0.1cqw rgba(161, 0, 255, 0.18);
+}
+
+.dogam-card .card-caption {
+  position: absolute;
+  left: 0.48cqw;
+  top: 0.58cqw;
+  display: flex;
+  align-items: baseline;
+  gap: 0.28cqw;
+  max-width: calc(100% - 0.56cqw);
+  color: #ff51ae;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 0.68cqw;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: visible;
+  opacity: 0.56;
+}
+
+.dogam-card .dex {
+  color: #ff51ae;
+  font-size: 1em;
+}
+
+.dogam-card .card-sprite {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  height: calc(53 * var(--shelf-dot) + max(0px, calc(-1 * var(--shelf-sprite-y, 0px))));
+  width: 100%;
+}
+
+.dogam-card.is-ggu img {
+  width: calc(var(--px-w, 32) * var(--shelf-dot) * 0.76);
+  height: calc(var(--px-h, 32) * var(--shelf-dot) * 0.76);
+}
+
+.dogam-card img {
+  display: block;
+  width: calc(var(--px-w, 32) * var(--shelf-dot));
+  height: calc(var(--px-h, 32) * var(--shelf-dot));
+  transform: translate3d(0, var(--shelf-sprite-y, 0px), 0);
+  max-width: none;
+  max-height: none;
+  transition: none;
+  backface-visibility: hidden;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.dogam-card b {
+  color: #7a3a8e;
+  font-family: "DNF Bit Bit v2", DNFBitBitv2, sans-serif;
+  font-size: 1em;
+  font-weight: normal;
+}

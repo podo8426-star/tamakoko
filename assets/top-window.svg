@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920.08 56.04">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 2.55px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #ff51ae;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-width: 2.59px;
+      }
+
+      .cls-3 {
+        stroke-width: 1.98px;
+      }
+
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-5 {
+        fill: #ff51ae;
+      }
+    </style>
+  </defs>
+  <g id="_레이아웃" data-name="레이아웃">
+    <rect id="_상단창" data-name="상단창" class="cls-5" width="1920.08" height="56.04"/>
+    <g>
+      <rect class="cls-4" x="1873.92" y="13.54" width="28.69" height="28.69" rx="1.45" ry="1.45"/>
+      <line class="cls-3" x1="1881.26" y1="21.05" x2="1894.77" y2="34.57"/>
+      <line class="cls-3" x1="1894.77" y1="21.05" x2="1881.26" y2="34.57"/>
+    </g>
+    <rect class="cls-4" x="1832.98" y="13.16" width="28.69" height="28.69" rx="1.45" ry="1.45"/>
+    <rect class="cls-2" x="1838.35" y="19.56" width="17.51" height="16.53" rx="1.49" ry="1.49"/>
+    <rect class="cls-5" x="1838.87" y="20.8" width="15.99" height="4.32"/>
+    <g>
+      <rect class="cls-4" x="1789.86" y="13.54" width="28.69" height="28.69" rx="1.45" ry="1.45"/>
+      <g id="_더보기창" data-name="더보기창">
+        <line class="cls-1" x1="1794.98" y1="35.35" x2="1812.69" y2="35.35"/>
+      </g>
+    </g>
+  </g>
+</svg>

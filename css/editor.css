@@ -1,0 +1,176 @@
+.layout-hud {
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 400;
+  width: min(920px, calc(100vw - 16px));
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(40, 8, 48, 0.92);
+  color: #fff;
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  font-size: 12px;
+  line-height: 1.35;
+  box-shadow: 0 10px 30px rgba(80, 0, 90, 0.28);
+  pointer-events: none;
+}
+
+.layout-hud[hidden] {
+  display: none !important;
+}
+
+.layout-hud strong {
+  color: #ffb0e1;
+}
+
+.layout-hud-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.layout-hud .layout-coords {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  margin: 0;
+  min-width: 220px;
+}
+
+.layout-hud p {
+  margin: 0;
+}
+
+.layout-hud-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+  pointer-events: auto;
+}
+
+.layout-hud button,
+.layout-edit-open {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #a100ff;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.layout-hud button.ghost,
+.layout-edit-open {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.layout-hud button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.layout-edit-open {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 400;
+  pointer-events: auto;
+}
+
+.layout-edit-open[hidden] {
+  display: none !important;
+}
+
+body[data-edit="on"] .layout-target {
+  cursor: grab;
+  outline: 1px dashed rgba(161, 0, 255, 0.35);
+  outline-offset: 2px;
+}
+
+body[data-edit="on"] .layout-target.is-dragging {
+  cursor: grabbing;
+  outline: 2px solid #a100ff;
+  z-index: 60;
+}
+
+body[data-edit="on"] .layout-target.is-selected {
+  outline: 2px solid #a100ff;
+}
+
+body[data-edit="on"] .gauge,
+body[data-edit="on"] .lv-num,
+body[data-edit="on"] .score-num,
+body[data-edit="on"] .point,
+body[data-edit="on"] .stats-face,
+body[data-edit="on"] .pet,
+body[data-edit="on"] .music-play,
+body[data-edit="on"] .music-seek,
+body[data-edit="on"] .watch-clock,
+body[data-edit="on"] .radio-hits button,
+body[data-edit="on"] .glitter-left,
+body[data-edit="on"] .glitter-right,
+body[data-edit="on"] .guest-logo,
+body[data-edit="on"] .guest-intro,
+body[data-edit="on"] .guest-form,
+body[data-edit="on"] .guest-submit,
+body[data-edit="on"] .guest-list,
+body[data-edit="on"] .page-dogam [data-copy],
+body[data-edit="on"] .dogam-hero,
+body[data-edit="on"] .dogam-hero img,
+body[data-edit="on"] .dogam-hero-no,
+body[data-edit="on"] .dogam-no,
+body[data-edit="on"] .dogam-name,
+body[data-edit="on"] .dogam-tags,
+body[data-edit="on"] .dogam-blurb,
+body[data-edit="on"] .growth,
+body[data-edit="on"] .growth-sprite,
+body[data-edit="on"] .growth-chip,
+body[data-edit="on"] .dogam-grid {
+  pointer-events: auto;
+}
+
+body[data-edit="on"] .guest-intro {
+  user-select: none;
+  cursor: pointer;
+}
+
+body[data-edit="on"] .layout-target[data-move="dbl"] {
+  cursor: default;
+}
+
+body[data-edit="on"] .layout-target[data-move="dbl"][data-can-move="1"] {
+  cursor: grab;
+}
+
+body[data-edit="on"] .dogam-hero.is-selected {
+  cursor: default;
+}
+
+body[data-edit="on"] .dogam-hero img.layout-target,
+body[data-edit="on"] .growth-chip.layout-target {
+  cursor: grab;
+}
+
+body[data-edit="on"] .music-seek {
+  outline: 1px dashed rgba(255, 255, 255, 0.55);
+}
+
+body[data-edit="on"] .point {
+  animation: none;
+}
+
+body[data-edit="on"] .nav-btn:hover img,
+body[data-edit="on"] .file-btn:hover img,
+body[data-edit="on"] .use-tip:hover img,
+body[data-edit="on"] .tama-btn:hover img,
+body[data-edit="on"] .item:hover img {
+  transform: none;
+  filter: none;
+}
+
+body[data-edit="on"] .layout-target img,
+body[data-edit="on"] .layout-target {
+  transition: none;
+}
