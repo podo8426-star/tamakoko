@@ -110,7 +110,17 @@ body[data-edit="on"] .music-seek,
 body[data-edit="on"] .watch-clock,
 body[data-edit="on"] .radio-hits button,
 body[data-edit="on"] .glitter-left,
-body[data-edit="on"] .glitter-right,
+body[data-edit="on"] .glitter-right {
+  pointer-events: auto;
+}
+
+body[data-edit="on"] .glitter-left,
+body[data-edit="on"] .glitter-right {
+  z-index: 80;
+  cursor: grab;
+  outline: 1px dashed rgba(161, 0, 255, 0.45);
+}
+
 body[data-edit="on"] .guest-logo,
 body[data-edit="on"] .guest-intro,
 body[data-edit="on"] .guest-form,

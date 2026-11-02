@@ -6,13 +6,13 @@ const POINT_OPENS = [
 ];
 
 const LUCKY_WINDOWS = [
-  "./assets/lucky-window-1.svg?v=24",
-  "./assets/lucky-window-2.svg?v=24",
-  "./assets/lucky-window-3.svg?v=24",
-  "./assets/lucky-window-4.svg?v=24",
-  "./assets/lucky-window-5.svg?v=24",
-  "./assets/lucky-window-6.svg?v=24",
-  "./assets/lucky-window-7.svg?v=24",
+  "./assets/lucky-window-1.svg?v=25",
+  "./assets/lucky-window-2.svg?v=25",
+  "./assets/lucky-window-3.svg?v=25",
+  "./assets/lucky-window-4.svg?v=25",
+  "./assets/lucky-window-5.svg?v=25",
+  "./assets/lucky-window-6.svg?v=25",
+  "./assets/lucky-window-7.svg?v=25",
 ];
 
 const ART_PHOTOS = [
