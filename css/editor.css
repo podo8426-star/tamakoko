@@ -50,8 +50,7 @@
   pointer-events: auto;
 }
 
-.layout-hud button,
-.layout-edit-open {
+.layout-hud button {
   padding: 6px 10px;
   border-radius: 999px;
   background: #a100ff;
@@ -61,26 +60,13 @@
   pointer-events: auto;
 }
 
-.layout-hud button.ghost,
-.layout-edit-open {
+.layout-hud button.ghost {
   background: rgba(255, 255, 255, 0.16);
 }
 
 .layout-hud button:disabled {
   opacity: 0.4;
   cursor: default;
-}
-
-.layout-edit-open {
-  position: fixed;
-  top: 8px;
-  left: 8px;
-  z-index: 400;
-  pointer-events: auto;
-}
-
-.layout-edit-open[hidden] {
-  display: none !important;
 }
 
 body[data-edit="on"] .layout-target {

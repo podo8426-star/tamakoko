@@ -175,7 +175,6 @@ const TARGETS = [
 
 const stage = document.querySelector(".stage");
 const hud = buildHud();
-const openBtn = buildOpenBtn();
 let selected = null;
 let drag = null;
 let history = [];
@@ -954,7 +953,6 @@ function setEditing(on) {
   if (!on) persistAll();
   document.body.dataset.edit = on ? "on" : "off";
   hud.hidden = !on;
-  openBtn.hidden = on;
   localStorage.setItem(EDIT_PREF, on ? "on" : "off");
   if (!on) select(null);
   else {
@@ -1002,16 +1000,6 @@ function buildHud() {
   return el;
 }
 
-function buildOpenBtn() {
-  const el = document.createElement("button");
-  el.type = "button";
-  el.className = "layout-edit-open";
-  el.textContent = "편집 켜기";
-  el.addEventListener("click", () => setEditing(true));
-  document.body.appendChild(el);
-  return el;
-}
-
 function cssLine(sel, rec, el) {
   const sr = stageBox();
   const pr = parentBox(el);
@@ -1054,7 +1042,7 @@ function resizeEdge(event, rect) {
 
 function onPointerDown(event) {
   if (!editing()) return;
-  if (event.target.closest(".layout-hud, .layout-edit-open")) return;
+  if (event.target.closest(".layout-hud")) return;
   const typing = event.target.closest("input, textarea, [contenteditable='true']");
   const hit = event.target.closest(".layout-target");
   const already = selected === hit;
@@ -1341,7 +1329,7 @@ window.addEventListener(
   "wheel",
   (event) => {
     if (!editing() || !selected) return;
-    if (event.target.closest(".layout-hud, .layout-edit-open")) return;
+    if (event.target.closest(".layout-hud")) return;
     if (event.target.closest("input, textarea, .guest-list")) return;
     const item = itemFromEl(selected);
     if ((item?.kind === "type" || item?.kind === "tags") && !event.altKey) return;
