@@ -332,40 +332,45 @@ img {
   font-family: "Neo둥근모 Pro";
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/NeoDunggeunmoPro-Regular.woff") format("woff"),
-    url("../assets/fonts/NeoDunggeunmoPro-Regular.ttf") format("truetype");
+  font-display: swap;
+  src: url("../assets/fonts/NeoDunggeunmoPro-Regular.ttf") format("truetype"),
+    url("../assets/fonts/NeoDunggeunmoPro-Regular.woff") format("woff");
 }
 
 @font-face {
   font-family: "NeoDunggeunmo Pro";
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/NeoDunggeunmoPro-Regular.woff") format("woff"),
-    url("../assets/fonts/NeoDunggeunmoPro-Regular.ttf") format("truetype");
+  font-display: swap;
+  src: url("../assets/fonts/NeoDunggeunmoPro-Regular.ttf") format("truetype"),
+    url("../assets/fonts/NeoDunggeunmoPro-Regular.woff") format("woff");
 }
 
 @font-face {
   font-family: NeoDunggeunmoPro-Regular;
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/NeoDunggeunmoPro-Regular.woff") format("woff"),
-    url("../assets/fonts/NeoDunggeunmoPro-Regular.ttf") format("truetype");
+  font-display: swap;
+  src: url("../assets/fonts/NeoDunggeunmoPro-Regular.ttf") format("truetype"),
+    url("../assets/fonts/NeoDunggeunmoPro-Regular.woff") format("woff");
 }
 
 @font-face {
   font-family: "DNF Bit Bit v2";
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/DNFBitBitv2.otf") format("opentype"),
-    url("../assets/fonts/DNFBitBitv2.ttf") format("truetype");
+  font-display: swap;
+  src: url("../assets/fonts/DNFBitBitv2.ttf") format("truetype"),
+    url("../assets/fonts/DNFBitBitv2.otf") format("opentype");
 }
 
 @font-face {
   font-family: DNFBitBitv2;
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/DNFBitBitv2.otf") format("opentype"),
-    url("../assets/fonts/DNFBitBitv2.ttf") format("truetype");
+  font-display: swap;
+  src: url("../assets/fonts/DNFBitBitv2.ttf") format("truetype"),
+    url("../assets/fonts/DNFBitBitv2.otf") format("opentype");
 }
 
 .stats-card {

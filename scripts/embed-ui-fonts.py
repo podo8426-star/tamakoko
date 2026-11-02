@@ -21,28 +21,39 @@ MARKER_END = "/* /tamakoko-embedded-fonts */"
 NEO_FAMILIES = (
     "NeoDunggeunmoPro-Regular",
     "NeoDunggeunmo Pro",
+    "Neo둥근모 Pro",
     "NeoDunggeunmo-Regular",
     "NeoDunggeunmo",
-    "DOSGothic",
 )
 DNF_FAMILIES = (
     "DNFBitBitv2-KSCpc-EUC-H",
     "DNF Bit Bit v2",
     "DNFBitBitv2",
 )
+KNOWN = set(NEO_FAMILIES + DNF_FAMILIES)
 
 SVGS = [
     "home-button.svg",
+    "home-button-on.svg",
+    "home-button-off.svg",
     "dogam-button.svg",
+    "dogam-button-on.svg",
+    "dogam-button-off.svg",
     "guestbook-button.svg",
+    "guestbook-button-on.svg",
+    "guestbook-button-off.svg",
     "stats.svg",
     "lucky-file.svg",
     "mind-set-file.svg",
     "cat-file.svg",
     "music.svg",
+    "music-bar-op.svg",
     "point.svg",
+    "point-open-1.svg",
+    "point-open-2.svg",
+    "point-open-3.svg",
+    "point-open-4.svg",
     "use-tip.svg",
-    "bad-trash.svg",
 ]
 
 
@@ -99,7 +110,7 @@ def needed_families(svg_text: str) -> list[str]:
 
 def inject(svg: Path, neo_b64: str, dnf_b64: str) -> None:
     raw = svg.read_text(encoding="utf-8")
-    families = needed_families(raw)
+    families = [fam for fam in needed_families(raw) if fam in KNOWN]
     if not families:
         return
     block = "        " + MARKER_START + "\n"
