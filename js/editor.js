@@ -565,8 +565,8 @@ function persistAll() {
   TARGETS.forEach((item) => {
     const el = document.querySelector(item.sel);
     if (el) item.el = el;
-    if (isDogamTarget(item)) return;
-    if (isGuestTarget(item) && document.body.dataset.page !== "guestbook") return;
+    if (isCssLockedLayout(item) || isDogamTarget(item)) return;
+    if (isGuestTarget(item)) return;
     if (item.sel === ".guest-intro" && !el?.style.left) return;
     if (!isVarKind(item) && !canCapture(el)) return;
     const rec = snapshotFor(item, el || varHost(item));
@@ -838,8 +838,13 @@ function applySaved() {
     localStorage.setItem(HERO_NO_POS_KEY, "1");
     patched = true;
   }
+  if (stripCssLockedStore(store)) patched = true;
   if (patched) saveStore(store);
   TARGETS.forEach((item) => {
+    if (isCssLockedLayout(item)) {
+      applyTarget(item, null);
+      return;
+    }
     const rec = readRec(store, item);
     if (isValidRec(rec)) applyTarget(item, rec);
   });
@@ -861,6 +866,44 @@ function isGuestTarget(item) {
 
 function isDogamTarget(item) {
   return item?.sel?.startsWith(".dogam-") || item?.sel?.startsWith(".growth");
+}
+
+function isCssLockedLayout(item) {
+  const sel = item?.sel;
+  if (!sel) return false;
+  if (isGuestTarget(item)) return true;
+  return (
+    sel === ".dogam-hero" ||
+    sel === ".dogam-no" ||
+    sel === ".dogam-name" ||
+    sel === ".dogam-tags" ||
+    sel === ".dogam-blurb" ||
+    sel === ".growth"
+  );
+}
+
+function stripCssLockedStore(store) {
+  let patched = false;
+  Object.keys(store).forEach((key) => {
+    const base = key.split("@@")[0];
+    if (base.startsWith(".guest-")) {
+      delete store[key];
+      patched = true;
+      return;
+    }
+    if (
+      base === ".dogam-hero" ||
+      base === ".dogam-no" ||
+      base === ".dogam-name" ||
+      base === ".dogam-tags" ||
+      base === ".dogam-blurb" ||
+      base === ".growth"
+    ) {
+      delete store[key];
+      patched = true;
+    }
+  });
+  return patched;
 }
 
 function needsLock(item) {

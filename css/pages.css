@@ -13,6 +13,8 @@
 
 .page-window {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: min(86%, 1580px);
   height: min(78%, 820px);
   margin-top: 3.2%;
@@ -29,8 +31,28 @@
   box-shadow: 0 0.3cqw 0 #ff7ad8, 0 0.58cqw 1.1cqw rgba(161, 0, 255, 0.16);
 }
 
+.page-guestbook .page-window {
+  display: block;
+}
+
+.page-guestbook .page-chrome {
+  position: relative;
+  z-index: 5;
+}
+
+.page-guestbook .page-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 3.4cqw;
+  bottom: 0;
+  flex: none;
+  height: auto;
+}
+
 .page-chrome {
   display: flex;
+  flex: 0 0 3.4cqw;
   align-items: center;
   gap: 0.7cqw;
   height: 3.4cqw;
@@ -77,7 +99,8 @@
 
 .page-body {
   display: grid;
-  height: calc(100% - 3.4cqw);
+  flex: 1 1 auto;
+  height: auto;
   min-height: 0;
 }
 
@@ -114,7 +137,8 @@
 }
 
 .dogam-body {
-  grid-template-rows: 1fr auto;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: 100%;
   min-height: 0;
 }
 
@@ -219,7 +243,7 @@
 }
 
 .guest-form textarea {
-  min-height: 7.6cqw;
+  min-height: 6.6cqw;
   padding: 0.55cqw 0.7cqw;
   resize: none;
   line-height: 1.4;
@@ -341,7 +365,9 @@ body[data-edit="on"] .dogam-tags span {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  height: 100%;
   min-height: 0;
+  align-items: stretch;
   padding: 1.45cqw 1.55cqw 1.55cqw;
   gap: 1.7cqw;
 }
@@ -354,10 +380,10 @@ body[data-edit="on"] .dogam-tags span {
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: start;
+  align-self: stretch;
   width: 29.7614cqw;
-  height: 47.8085cqh;
-  aspect-ratio: auto;
+  max-width: 100%;
+  height: auto;
   max-height: none;
   min-height: 0;
   overflow: hidden;
@@ -395,7 +421,8 @@ body[data-edit="on"] .dogam-tags span {
 .dogam-meta {
   position: relative;
   min-width: 0;
-  min-height: 100%;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 0.55cqw;
