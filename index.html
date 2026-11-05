@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/main.css?v=70" />
     <link rel="stylesheet" href="./css/positions.css?v=48" />
     <link rel="stylesheet" href="./css/editor.css?v=69" />
-    <link rel="stylesheet" href="./css/pages.css?v=93" />
+    <link rel="stylesheet" href="./css/pages.css?v=94" />
   </head>
   <body>
     <div class="viewport">
@@ -208,11 +208,11 @@
                 <form class="guest-form" id="guest-form">
                   <label class="guest-name-label">
                     <span data-copy="nameLabel">이름</span>
-                    <input name="name" type="text" maxlength="12" required data-copy-ph="namePh" placeholder="별명도 괜찮아" />
+                    <input name="name" type="text" required autocomplete="off" spellcheck="false" data-copy-ph="namePh" placeholder="별명도 괜찮아" />
                   </label>
                   <label class="guest-text-label">
                     <span data-copy="textLabel">응원의 말</span>
-                    <textarea name="text" maxlength="120" required data-copy-ph="textPh" placeholder="지금 무슨 생각해?"></textarea>
+                    <textarea name="text" required autocomplete="off" spellcheck="false" data-copy-ph="textPh" placeholder="지금 무슨 생각해?"></textarea>
                   </label>
                 </form>
                 <button type="submit" class="guest-submit" form="guest-form"><span data-copy="submit">남기기</span></button>
@@ -367,19 +367,19 @@
         <audio id="radio-audio" preload="auto"></audio>
       </div>
     </div>
-    <audio id="bgm" src="./assets/media/tamakoko.mp3" loop preload="auto"></audio>
+    <audio id="bgm" src="./assets/media/tamakoko.mp3" loop preload="metadata"></audio>
     <audio id="sfx-click" src="./assets/media/click.mp3" preload="auto"></audio>
     <audio id="sfx-file" src="./assets/media/file-select.mp3?v=2" preload="auto"></audio>
     <audio id="sfx-point" src="./assets/media/point.mp3?v=2" preload="auto"></audio>
     <audio id="sfx-guest" src="./assets/media/guestbook.mp3" preload="auto"></audio>
     <audio id="sfx-whoosh" src="./assets/media/magic1.mp3?v=1" preload="auto"></audio>
-    <script src="./js/interact.js?v=41"></script>
+    <script src="./js/interact.js?v=42"></script>
     <script src="./js/windows.js?v=39"></script>
     <script src="./js/stats.js?v=31"></script>
     <script src="./js/pet.js?v=26"></script>
     <script src="./js/sketch.js?v=22"></script>
     <script src="./js/pages.js?v=75"></script>
     <script src="./js/selfie.js?v=53"></script>
-    <script src="./js/editor.js?v=97"></script>
+    <script src="./js/editor.js?v=98"></script>
   </body>
 </html>

@@ -79,15 +79,12 @@ if (seaVideo) seaVideo.volume = 0.4;
 
 function playSfx(el, volume) {
   if (!el) return;
-  try {
-    el.pause();
-    el.currentTime = 0;
-  } catch {
-    /* ignore seek errors before metadata */
-  }
-  el.volume = volume;
-  const play = el.play();
-  if (play) play.catch(() => {});
+  const node = el.cloneNode(true);
+  node.muted = false;
+  node.volume = volume;
+  node.addEventListener("ended", () => node.remove(), { once: true });
+  const play = node.play();
+  if (play) play.catch(() => node.remove());
 }
 
 function playClick() {
@@ -215,6 +212,7 @@ function playBgm() {
   if (!bgm) return;
   bgm.play().catch(() => {});
   syncMusicUi();
+  prepareSeekableBgm();
 }
 
 function pauseHomeBgm() {
@@ -638,14 +636,6 @@ syncMusicUi();
 document.addEventListener("click", (event) => {
   if (event.target.closest(".item, .tama-btn, .item-popup, .modal, .music")) return;
   hidePopup();
-});
-
-prepareSeekableBgm().then(() => {
-  try {
-    playBgm();
-  } catch (err) {
-    /* autoplay may be blocked */
-  }
 });
 
 document.addEventListener(

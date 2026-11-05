@@ -1416,9 +1416,10 @@ window.addEventListener(
 window.addEventListener(
   "keyup",
   (event) => {
+    if (event.isComposing || event.keyCode === 229) return;
     if (event.code !== "KeyE" || !event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
-    if (isTypingContext(event)) return;
     if (event.key !== "E" && event.key !== "e") return;
+    if (isTypingContext(event)) return;
     setEditing(!editing());
   },
   true,
@@ -1429,6 +1430,7 @@ window.addEventListener(
   (event) => {
     const meta = event.metaKey || event.ctrlKey;
     if (meta && event.code === "KeyZ") {
+      if (isTypingContext(event)) return;
       event.preventDefault();
       if (event.shiftKey) redo();
       else undo();
