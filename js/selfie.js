@@ -13,11 +13,14 @@ const selfieShutter = document.querySelector(".selfie-shutter");
 const selfieLive = document.querySelector(".selfie-live");
 const selfieDelete = document.querySelector(".selfie-delete");
 const selfieViewBox = document.querySelector(".selfie-view");
+const SELFIE_DB = "tamakoko-selfies";
+const SELFIE_STORE = "shots";
 let selfieStream = null;
-let selfieShots = loadSelfies();
+let selfieShots = [];
 let selfieCurrent = -1;
 let selfieView = "live";
 let shutterCtx = null;
+const selfieReady = hydrateSelfies();
 
 function playShutter() {
   try {
@@ -72,17 +75,96 @@ function loadSelfies() {
   }
 }
 
-function saveSelfies() {
-  try {
-    localStorage.setItem(SELFIE_KEY, JSON.stringify(selfieShots.slice(0, SELFIE_MAX)));
-  } catch {
-    while (selfieShots.length > 4) selfieShots.shift();
+function openSelfieDb() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(SELFIE_DB, 1);
+    req.onupgradeneeded = () => {
+      if (!req.result.objectStoreNames.contains(SELFIE_STORE)) {
+        req.result.createObjectStore(SELFIE_STORE);
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function readSelfieDb() {
+  const db = await openSelfieDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(SELFIE_STORE, "readonly");
+    const req = tx.objectStore(SELFIE_STORE).get("list");
+    req.onsuccess = () => {
+      const value = req.result;
+      resolve(Array.isArray(value) ? value.filter((item) => typeof item === "string") : []);
+    };
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function writeSelfieDb(list) {
+  const db = await openSelfieDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(SELFIE_STORE, "readwrite");
+    tx.objectStore(SELFIE_STORE).put(list, "list");
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+function writeSelfieLocal(list) {
+  let next = list.slice();
+  while (next.length) {
     try {
-      localStorage.setItem(SELFIE_KEY, JSON.stringify(selfieShots));
+      localStorage.setItem(SELFIE_KEY, JSON.stringify(next));
+      selfieShots = next;
+      return true;
     } catch {
-      /* quota full */
+      next.shift();
     }
   }
+  try {
+    localStorage.removeItem(SELFIE_KEY);
+  } catch {
+    /* ignore */
+  }
+  return false;
+}
+
+async function hydrateSelfies() {
+  try {
+    const fromDb = await readSelfieDb();
+    if (fromDb.length) {
+      selfieShots = fromDb;
+      try {
+        localStorage.removeItem(SELFIE_KEY);
+      } catch {
+        /* ignore */
+      }
+      renderStrip(false);
+      return;
+    }
+  } catch {
+    /* fall through to localStorage */
+  }
+  selfieShots = loadSelfies();
+  if (selfieShots.length) await saveSelfies();
+}
+
+async function saveSelfies() {
+  const list = selfieShots.slice(0, SELFIE_MAX);
+  selfieShots = list;
+  try {
+    await writeSelfieDb(list);
+    try {
+      localStorage.removeItem(SELFIE_KEY);
+    } catch {
+      /* ignore */
+    }
+    return;
+  } catch {
+    /* IndexedDB unavailable */
+  }
+  writeSelfieLocal(list);
 }
 
 function flashSelfie() {
@@ -180,7 +262,7 @@ async function startCamera() {
 }
 
 async function openSelfie() {
-  selfieShots = loadSelfies();
+  await selfieReady;
   selfieModal.hidden = false;
   renderStrip(true);
   syncButtons();
@@ -215,8 +297,8 @@ function takeSelfie() {
   if (selfieView !== "live") return;
   if (!selfieCam || selfieCam.readyState < 2) return;
   const canvas = document.createElement("canvas");
-  const w = SELFIE_FRAME_W * 2;
-  const h = SELFIE_FRAME_H * 2;
+  const w = SELFIE_FRAME_W;
+  const h = SELFIE_FRAME_H;
   canvas.width = w;
   canvas.height = h;
   const ctx = canvas.getContext("2d");
@@ -228,7 +310,7 @@ function takeSelfie() {
   if (selfieFrame?.complete && selfieFrame.naturalWidth) {
     ctx.drawImage(selfieFrame, 0, 0, w, h);
   }
-  const url = canvas.toDataURL("image/jpeg", 0.84);
+  const url = canvas.toDataURL("image/jpeg", 0.76);
   selfieShots.push(url);
   if (selfieShots.length > SELFIE_MAX) selfieShots = selfieShots.slice(-SELFIE_MAX);
   saveSelfies();
@@ -268,4 +350,7 @@ selfieModal?.addEventListener("click", (event) => {
 });
 window.addEventListener("tamakoko:page", () => {
   if (!selfieModal?.hidden) closeSelfie();
+});
+window.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") saveSelfies();
 });

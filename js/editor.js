@@ -185,6 +185,7 @@ function editing() {
 }
 
 window.isLayoutEditing = editing;
+window.setLayoutEditing = setEditing;
 
 function stageBox() {
   return stage.getBoundingClientRect();
@@ -1362,6 +1363,23 @@ window.refreshLayoutTargets = () => {
 
 const params = new URLSearchParams(location.search);
 setEditing(params.get("edit") === "1");
+
+(function bindTopSecret() {
+  const hit = document.querySelector(".top-secret");
+  if (!hit) return;
+  let taps = 0;
+  let last = 0;
+  hit.addEventListener("click", (event) => {
+    event.preventDefault();
+    const now = Date.now();
+    if (now - last > 700) taps = 0;
+    last = now;
+    taps += 1;
+    if (taps < 5) return;
+    taps = 0;
+    setEditing(true);
+  });
+})();
 
 stage.addEventListener("pointerdown", onPointerDown, true);
 stage.addEventListener(
