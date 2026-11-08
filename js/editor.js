@@ -1461,6 +1461,79 @@ window.addEventListener(
   true,
 );
 
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (ch) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  }[ch]));
+}
+
+function parseMemoryFile(text) {
+  try {
+    const data = JSON.parse(text);
+    if (data?.kind === "tamakoko-memory-v1") return data;
+  } catch {
+    /* html album */
+  }
+  const match = text.match(/<script[^>]*id="tamakoko-memory"[^>]*>([\s\S]*?)<\/script>/i);
+  if (!match) throw new Error("bad backup");
+  const data = JSON.parse(match[1]);
+  if (data?.kind !== "tamakoko-memory-v1") throw new Error("bad backup");
+  return data;
+}
+
+function memoryAlbumHtml(payload) {
+  const guests = Array.isArray(payload.guests) ? payload.guests : [];
+  const selfies = Array.isArray(payload.selfies) ? payload.selfies : [];
+  const guestHtml = guests.length
+    ? guests.map((note) => `
+      <article class="card">
+        <header><strong>${escapeHtml(note.name)}</strong><span>${escapeHtml(note.date)}</span></header>
+        <p>${escapeHtml(note.text).replace(/\n/g, "<br>")}</p>
+      </article>`).join("")
+    : "<p class='empty'>아직 방명록이 없어.</p>";
+  const photoHtml = selfies.length
+    ? selfies.map((src, i) => `<figure><img src="${src}" alt="셀카 ${i + 1}"></figure>`).join("")
+    : "<p class='empty'>아직 사진이 없어.</p>";
+  const json = JSON.stringify(payload).replace(/</g, "\\u003c");
+  return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>타마코코 기억</title>
+  <style>
+    body { margin: 0; background: #ffd6ec; color: #6b2a86; font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+    main { max-width: 920px; margin: 0 auto; padding: 28px 18px 48px; }
+    h1 { color: #ff51ae; font-size: 28px; margin: 0 0 8px; }
+    h2 { color: #a100ff; margin: 28px 0 12px; }
+    .sub { margin: 0 0 24px; color: #c63d96; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+    figure { margin: 0; background: #fff; border: 2px solid #ffb6e2; border-radius: 12px; overflow: hidden; }
+    img { display: block; width: 100%; height: auto; }
+    .card { background: #fff; border: 2px solid #ffb6e2; border-radius: 12px; padding: 12px 14px; margin: 0 0 10px; }
+    .card header { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 6px; color: #ff51ae; }
+    .card p { margin: 0; white-space: pre-wrap; }
+    .empty { color: #d08bbc; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>타마코코 기억</h1>
+    <p class="sub">더블클릭해서 브라우저로 열면 돼. 사이트로 다시 넣으려면 상단바 5번 → 기억 열기.</p>
+    <h2>방명록 ${guests.length}</h2>
+    ${guestHtml}
+    <h2>사진 ${selfies.length}</h2>
+    <div class="grid">${photoHtml}</div>
+  </main>
+  <script type="application/json" id="tamakoko-memory">${json}</script>
+</body>
+</html>`;
+}
+
 async function exportMemory() {
   const btn = hud.querySelector("[data-backup]");
   const guests = window.getGuestBackup?.() || [];
@@ -1471,11 +1544,11 @@ async function exportMemory() {
     guests,
     selfies,
   };
-  const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+  const blob = new Blob([memoryAlbumHtml(payload)], { type: "text/html" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "tamakoko-memory.json";
+  a.download = "tamakoko-기억.html";
   a.click();
   URL.revokeObjectURL(url);
   if (btn) {
@@ -1489,13 +1562,12 @@ async function exportMemory() {
 function importMemory() {
   const input = document.createElement("input");
   input.type = "file";
-  input.accept = "application/json,.json";
+  input.accept = ".html,.json,text/html,application/json";
   input.addEventListener("change", async () => {
     const file = input.files?.[0];
     if (!file) return;
     try {
-      const data = JSON.parse(await file.text());
-      if (data?.kind !== "tamakoko-memory-v1") throw new Error("bad backup");
+      const data = parseMemoryFile(await file.text());
       window.setGuestBackup?.(data.guests);
       await window.setSelfieBackup?.(data.selfies);
       const btn = hud.querySelector("[data-restore]");
