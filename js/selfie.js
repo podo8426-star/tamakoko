@@ -354,3 +354,21 @@ window.addEventListener("tamakoko:page", () => {
 window.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "hidden") saveSelfies();
 });
+
+window.getSelfieBackup = async () => {
+  await selfieReady;
+  return selfieShots.slice();
+};
+
+window.setSelfieBackup = async (shots) => {
+  await selfieReady;
+  const incoming = (Array.isArray(shots) ? shots : []).filter((item) => typeof item === "string" && item.startsWith("data:"));
+  const seen = new Set(selfieShots);
+  incoming.forEach((url) => {
+    if (seen.has(url)) return;
+    selfieShots.push(url);
+    seen.add(url);
+  });
+  await saveSelfies();
+  renderStrip(true);
+};

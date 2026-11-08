@@ -129,6 +129,16 @@ function saveGuests(list) {
   localStorage.setItem(GUEST_KEY, JSON.stringify(list));
 }
 
+window.getGuestBackup = () => loadGuests();
+window.setGuestBackup = (notes) => {
+  const cur = loadGuests();
+  const keyOf = (n) => `${n?.date || ""}|${n?.name || ""}|${n?.text || ""}`;
+  const seen = new Set(cur.map(keyOf));
+  const extra = (Array.isArray(notes) ? notes : []).filter((n) => n?.name && n?.text && !seen.has(keyOf(n)));
+  saveGuests([...extra, ...cur].slice(0, 80));
+  renderGuests();
+};
+
 function stamp() {
   const now = new Date();
   const p = (n) => String(n).padStart(2, "0");

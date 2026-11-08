@@ -1044,6 +1044,8 @@ function buildHud() {
         <button type="button" class="ghost" data-undo>되돌리기</button>
         <button type="button" class="ghost" data-redo>다시 실행</button>
         <button type="button" data-copy>CSS 복사</button>
+        <button type="button" class="ghost" data-backup>기억 저장</button>
+        <button type="button" class="ghost" data-restore>기억 열기</button>
         <button type="button" class="ghost" data-clear>초기화</button>
         <button type="button" class="ghost" data-toggle>미리보기</button>
       </div>
@@ -1459,7 +1461,68 @@ window.addEventListener(
   true,
 );
 
+async function exportMemory() {
+  const btn = hud.querySelector("[data-backup]");
+  const guests = window.getGuestBackup?.() || [];
+  const selfies = (await window.getSelfieBackup?.()) || [];
+  const payload = {
+    kind: "tamakoko-memory-v1",
+    savedAt: new Date().toISOString(),
+    guests,
+    selfies,
+  };
+  const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "tamakoko-memory.json";
+  a.click();
+  URL.revokeObjectURL(url);
+  if (btn) {
+    btn.textContent = "저장됨!";
+    setTimeout(() => {
+      btn.textContent = "기억 저장";
+    }, 1400);
+  }
+}
+
+function importMemory() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "application/json,.json";
+  input.addEventListener("change", async () => {
+    const file = input.files?.[0];
+    if (!file) return;
+    try {
+      const data = JSON.parse(await file.text());
+      if (data?.kind !== "tamakoko-memory-v1") throw new Error("bad backup");
+      window.setGuestBackup?.(data.guests);
+      await window.setSelfieBackup?.(data.selfies);
+      const btn = hud.querySelector("[data-restore]");
+      if (btn) {
+        btn.textContent = "열림!";
+        setTimeout(() => {
+          btn.textContent = "기억 열기";
+        }, 1400);
+      }
+    } catch {
+      const btn = hud.querySelector("[data-restore]");
+      if (btn) {
+        btn.textContent = "파일 확인";
+        setTimeout(() => {
+          btn.textContent = "기억 열기";
+        }, 1600);
+      }
+    }
+  });
+  input.click();
+}
+
 hud.querySelector("[data-copy]").addEventListener("click", copyCss);
+hud.querySelector("[data-backup]").addEventListener("click", () => {
+  exportMemory().catch(() => {});
+});
+hud.querySelector("[data-restore]").addEventListener("click", importMemory);
 hud.querySelector("[data-undo]").addEventListener("click", undo);
 hud.querySelector("[data-redo]").addEventListener("click", redo);
 hud.querySelector("[data-clear]").addEventListener("click", () => {
